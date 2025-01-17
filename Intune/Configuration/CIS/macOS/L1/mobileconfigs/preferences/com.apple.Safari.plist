@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AutoOpenSafeDownloads</key>
+	<false/>
+	<key>BlockStoragePolicy</key>
+	<integer>2</integer>
+	<key>ShowFullURLInSmartSearchField</key>
+	<true/>
+	<key>ShowOverlayStatusBar</key>
+	<true/>
+	<key>WarnAboutFraudulentWebsites</key>
+	<true/>
+	<key>WebKitPreferences.privateClickMeasurementEnabled</key>
+	<true/>
+	<key>WebKitPreferences.storageBlockingPolicy</key>
+	<integer>1</integer>
+	<key>WebKitStorageBlockingPolicy</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,69 @@
+﻿{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/configurationPolicies/$entity",
+    "createdDateTime": "2024-07-11T16:09:55.4779753Z",
+    "creationSource": null,
+    "description": "",
+    "lastModifiedDateTime": "2024-07-11T16:09:55.4779753Z",
+    "name": "CIS (L1) Locked Screen Experience - iOS/iPadOS Intune 1.0.0",
+    "platforms": "iOS",
+    "priorityMetaData": null,
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "settingCount": 1,
+    "technologies": "mdm,appleRemoteManagement",
+    "id": "d2390c48-454c-42cf-bb31-3eacb4505e9c",
+    "templateReference": {
+        "templateId": "",
+        "templateFamily": "none",
+        "templateDisplayName": null,
+        "templateDisplayVersion": null
+    },
+    "settings": [
+        {
+            "id": "0",
+            "settingInstance": {
+                "@odata.type": "#microsoft.graph.deviceManagementConfigurationGroupSettingCollectionInstance",
+                "settingDefinitionId": "com.apple.applicationaccess_com.apple.applicationaccess",
+                "settingInstanceTemplateReference": null,
+                "groupSettingCollectionValue": [
+                    {
+                        "settingValueTemplateReference": null,
+                        "children": [
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                                "settingDefinitionId": "com.apple.applicationaccess_allowlockscreencontrolcenter",
+                                "settingInstanceTemplateReference": null,
+                                "choiceSettingValue": {
+                                    "settingValueTemplateReference": null,
+                                    "value": "com.apple.applicationaccess_allowlockscreencontrolcenter_false",
+                                    "children": []
+                                }
+                            },
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                                "settingDefinitionId": "com.apple.applicationaccess_allowlockscreentodayview",
+                                "settingInstanceTemplateReference": null,
+                                "choiceSettingValue": {
+                                    "settingValueTemplateReference": null,
+                                    "value": "com.apple.applicationaccess_allowlockscreentodayview_false",
+                                    "children": []
+                                }
+                            },
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                                "settingDefinitionId": "com.apple.applicationaccess_allowpassbookwhilelocked",
+                                "settingInstanceTemplateReference": null,
+                                "choiceSettingValue": {
+                                    "settingValueTemplateReference": null,
+                                    "value": "com.apple.applicationaccess_allowpassbookwhilelocked_false",
+                                    "children": []
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

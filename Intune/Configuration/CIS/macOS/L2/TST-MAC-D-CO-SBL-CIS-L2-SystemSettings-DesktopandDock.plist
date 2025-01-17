@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<array>
+			<dict>
+				<key>mcx_preference_settings</key>
+				<dict>
+					<key>wvous-bl-corner</key>
+					<integer>1</integer>
+					<key>wvous-bl-modifier</key>
+					<integer>0</integer>
+					<key>wvous-br-corner</key>
+					<integer>1</integer>
+					<key>wvous-br-modifier</key>
+					<integer>0</integer>
+					<key>wvous-tl-corner</key>
+					<integer>1</integer>
+					<key>wvous-tl-modifier</key>
+					<integer>0</integer>
+					<key>wvous-tr-corner</key>
+					<integer>1</integer>
+					<key>wvous-tr-modifier</key>
+					<integer>0</integer>
+				</dict>
+			</dict>
+		</array>
+	</dict>
+</plist>

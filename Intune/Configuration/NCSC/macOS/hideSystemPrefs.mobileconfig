@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadContent</key>
+        <array>
+            <dict>
+                <key>PayloadType</key>
+                <string>com.apple.systempreferences</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>PayloadIdentifier</key>
+                <string>com.apple.systempreferences.12D5D87D-F18F-4807-84A8-1E77FBF0EA4B</string>
+                <key>PayloadUUID</key>
+                <string>12D5D87D-F18F-4807-84A8-1E77FBF0EA4B</string>
+                <key>PayloadDisplayName</key>
+                <string>com.apple.systempreferences</string>
+                <key>PayloadDescription</key>
+                <string>NCSC Hide System Preferences;iCloud, Security, Startup Disk and Sharing</string>
+                <key>PayloadOrganization</key>
+                <string>ennbee.uk</string>
+                <key>PayloadEnabled</key>
+                <true/>
+                <key>HiddenPreferencePanes</key>
+                <array>
+                    <string>com.apple.preferences.icloud</string>
+                    <string>com.apple.preference.security</string>
+                    <string>com.apple.preference.startupdisk</string>
+                    <string>com.apple.preferences.sharing</string>
+                </array>
+            </dict>
+        </array>
+        <key>PayloadDescription</key>
+        <string>NCSC Hide System Preferences;iCloud, Security, Startup Disk and Sharing</string>
+        <key>PayloadDisplayName</key>
+        <string>NCSC Hide System Preferences</string>
+        <key>PayloadIdentifier</key>
+        <string>com.apple.systempreferences</string>
+        <key>PayloadOrganization</key>
+        <string>ennbee.uk</string>
+        <key>PayloadUUID</key>
+        <string>BE218051-ED0B-4555-ADFB-86AA3072BB35</string>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadScope</key>
+        <string>User</string>
+    </dict>
+</plist>

@@ -1,0 +1,49 @@
+﻿{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/configurationPolicies/$entity",
+    "createdDateTime": "2024-07-11T15:56:33.4453877Z",
+    "creationSource": null,
+    "description": "",
+    "lastModifiedDateTime": "2024-07-11T15:56:33.4453877Z",
+    "name": "CIS (L2) General Restrictions - iOS/iPadOS Intune 1.0.0",
+    "platforms": "iOS",
+    "priorityMetaData": null,
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "settingCount": 1,
+    "technologies": "mdm,appleRemoteManagement",
+    "id": "7b387606-32d1-463c-a6af-f5ca40fb7e8c",
+    "templateReference": {
+        "templateId": "",
+        "templateFamily": "none",
+        "templateDisplayName": null,
+        "templateDisplayVersion": null
+    },
+    "settings": [
+        {
+            "id": "0",
+            "settingInstance": {
+                "@odata.type": "#microsoft.graph.deviceManagementConfigurationGroupSettingCollectionInstance",
+                "settingDefinitionId": "com.apple.applicationaccess_com.apple.applicationaccess",
+                "settingInstanceTemplateReference": null,
+                "groupSettingCollectionValue": [
+                    {
+                        "settingValueTemplateReference": null,
+                        "children": [
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                                "settingDefinitionId": "com.apple.applicationaccess_allowuntrustedtlsprompt",
+                                "settingInstanceTemplateReference": null,
+                                "choiceSettingValue": {
+                                    "settingValueTemplateReference": null,
+                                    "value": "com.apple.applicationaccess_allowuntrustedtlsprompt_false",
+                                    "children": []
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+<Configuration>
+  <Add OfficeClientEdition="64" Channel="MonthlyEnterprise" MigrateArch="TRUE">
+    <Product ID="VisioProRetail">
+      <Language ID="MatchInstalled" TargetProduct="O365ProPlusRetail" />
+      <Language ID="en-us" />
+    </Product>
+   </Add>
+</Configuration>

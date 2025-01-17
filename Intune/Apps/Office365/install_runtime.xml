@@ -1,0 +1,9 @@
+<Configuration Host="cm">
+  <Add Channel="SemiAnnual" OfficeMgmtCOM="TRUE">
+    <Product ID="AccessRuntimeRetail">
+      <Language ID="MatchInstalled" TargetProduct="O365ProPlusRetail"/>
+      <Language ID="en-us" />
+    </Product>
+   </Add>
+   <RemoveMSI />
+</Configuration>

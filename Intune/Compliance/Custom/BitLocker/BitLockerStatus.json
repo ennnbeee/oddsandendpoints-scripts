@@ -1,0 +1,60 @@
+{
+    "Rules": [
+        {
+            "SettingName": "Encryption Status",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Encrypted",
+            "MoreInfoUrl": "https://support.microsoft.com/en-gb/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "BitLocker is not enabled.",
+                    "Description": "Your device must be encrypted by BitLocker."
+                }
+            ]
+        },
+        {
+            "SettingName": "Encryption Method",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Full Disk Encryption",
+            "MoreInfoUrl": "https://support.microsoft.com/en-gb/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Your device is not encrypted correctly",
+                    "Description": "Your device must use Full Disk Encryption."
+                }
+            ]
+        },
+        {
+            "SettingName": "Encryption Algorithm",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "xtsAes256",
+            "MoreInfoUrl": "https://support.microsoft.com/en-gb/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Your device is not encrypted with the correct algorithm",
+                    "Description": "Your device must be encrypted with XTS-AES256 encryption algorithm."
+                }
+            ]
+        },
+        {
+            "SettingName": "Encryption Percentage",
+            "Operator": "IsEquals",
+            "DataType": "Int64",
+            "Operand": "100",
+            "MoreInfoUrl": "https://support.microsoft.com/en-gb/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Your device is not fully encrypted",
+                    "Description": "Your device must be fully encrypted."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Welcome to MEM v ENNBEE",
+  "message": "Please wait while we configure your macOS device...",
+  "blurscreen": true,
+  "moveable": false,
+  "ontop": true,
+  "button1text": "Exit (Installations will continue)",
+  "icon": "/Library/Application Support/Microsoft/Intune/Scripts/SwiftDialog/icons/MEMvENNBEE.png",
+  "centreicon": false,
+  "iconsize": "500",
+  "listitem": [
+    {
+      "title": "Company Portal",
+      "icon": "/Library/Application Support/Microsoft/Intune/Scripts/SwiftDialog/icons/CompanyPortal.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "One Drive",
+      "icon": "/Library/Application Support/Microsoft/Intune/Scripts/SwiftDialog/icons/OneDrive.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Edge",
+      "icon": "/Library/Application Support/Microsoft/Intune/Scripts/SwiftDialog/icons/Edge.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Defender",
+      "icon": "/Library/Application Support/Microsoft/Intune/Scripts/SwiftDialog/icons/Defender.png",
+      "status": "pending",
+      "statustext": "Pending"
+    }
+  ]
+}

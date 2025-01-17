@@ -1,0 +1,46 @@
+{
+    "Rules": [
+        {
+            "SettingName": "Sophos Anti-Virus",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Sophos Anti-Virus",
+            "MoreInfoUrl": "https://support.home.sophos.com/hc/en-us/categories/115001242663-Installing-Sophos-Home",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Sophos Anti-Virus was not detected.",
+                    "Description": "You must have Sophos Antivirus installed on your device to protect it from malware."
+                }
+            ]
+        },
+        {
+            "SettingName": "Sophos Anti-Virus real time protection enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "On",
+            "MoreInfoUrl": "https://support.home.sophos.com/hc/en-us/articles/115005596186-Configuring-Real-Time-Protection",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Sophos Antivirus real time protection is not enabled",
+                    "Description": "Real time protection must be enabled in Sophos to protect your device, please enable this setting."
+                }
+            ]
+        },
+        {
+            "SettingName": "Sophos Anti-Virus definitions up-to-date",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Up to Date",
+            "MoreInfoUrl": "https://kb.mit.edu/confluence/pages/viewpage.action?pageId=152584581#:~:text=By%20default%2C%20Sophos%20Anti%2DVirus,as%20detailed%20%E2%80%93%20is%20not%20necessary.",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Sophos Antivirus definitions are not up to date.",
+                    "Description": "Please update the Sophos Antivirus definitions to ensure you device is protected from malware."
+                }
+            ]
+        }
+    ]
+}

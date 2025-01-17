@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Applications.Telemetry.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Applications.Telemetry.Server.LogManager">
+            <summary>
+            LogManager class allows intitialization, teardown and static access to ILogger implementations.
+            Also supports higher level Metrics and System telemetry collection for common service scenarios.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Applications.Telemetry.Server.LogManager.SemanticContext">
+            <summary>
+            Used to populate common fields that are sent with every event.
+            The logger specific SemanticContext will override this.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.Initialize(System.String)">
+            <summary>
+            Initializes the LogManager to allow sending events to ARIA.
+            </summary>
+            <param name="tenantToken">The token for your tenant.</param>
+            <returns>Default instance of ILogger for logging.</returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.Initialize(System.String,Microsoft.Applications.Telemetry.LogConfiguration)">
+            <summary>
+            Initializes the LogManager to allow sending events to ARIA.
+            </summary>
+            <param name="tenantToken">The token for your tenant.</param>
+            <param name="configuration">LogConfiguration. The values specified here will override the default settings.</param>
+            <returns>Default instance of ILogger for logging.</returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.GetLogger(System.String,System.String)">
+            <summary>
+            Gets the logger with the specified tenantToken and source.
+            For the default ILogger instance, do not specify an tenantToken or source.
+            </summary>
+            <param name="tenantToken">The token for your tenant.</param>
+            <param name="source">The name of an optional component in your application that can be used to group associated telemetry events.</param>
+            <returns>
+              <para>
+              Returns the ILogger instance with the specified tenantToken and source.
+              If source is not specified, returns the ILogger instance with the default source. The default source is "Ast_Default_Source".
+              If tenantToken is not specified, returns the ILogger instance with the default tenantToken. The default tenantToken is the tenant token specified in <see cref="M:Microsoft.Applications.Telemetry.Server.LogManager.Initialize(System.String)" />.
+              If neither is specified, returns the ILogger instance with the default tenantToken and default source.
+             </para>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.GetTelemetryEvents">
+            <summary>
+            <para>
+            Gets <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryEvents" /> which provides notifications related to various stages of the events
+            as they pass through the SDK.
+            </para>
+            <para>
+            Requires LogManager to be initialized first.
+            </para>
+            </summary>
+            <returns>
+            <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryEvents" /> associated with this Log Manager
+            </returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.String,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.Int64,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.Double,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.Boolean,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.DateTime,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            
+            If piiKind is set, we will use the UTC Ticks as the raw content.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.String,System.Guid,Microsoft.Applications.Telemetry.PiiType)">
+            <summary>
+            Add a named property that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            
+            If piiKind is set, we will use the GUID string as the raw content.
+            </summary>
+            <param name="key">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+            <param name="piiKind">The piiKind of the property. The default kind indicates the property is not pii</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.SetContext(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Add a dictionary of properties that should be sent with every event.
+            The logger specific Context will override this if the same key exists in the logger specific Context.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.Flush">
+            <summary>
+            <para>
+            Wait synchronously until all records added to the library so far have been sent (or dropped
+            e.g. because of network problems).
+            </para>
+            <para>
+            This method is thread safe.
+            </para>
+            <para>
+            This method is VERY EXPENSIVE compared to others. It requires a lot of synchronization.
+            It also slows down processing of new records, actually new records are not processed at
+            all while this method is in progress. Instead, they are accumulated in dedicated queue
+            and transfered to the primary queue when this operation is done.
+            </para>
+            <para>
+            If second call to this method is issued before the first finished then the second call
+            will wait until records added to the library between the first and the second call are sent.
+            </para>
+            <para>
+            If execution of this method is longer than <c>TransmissionConfiguration.WaitUntilNoRecordsTimeout</c>
+            then <see cref="T:System.OperationCanceledException"/> exception is thrown.
+            The timer starts after all previous calls to Flush finished.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.FlushAndTearDown(Microsoft.Applications.Telemetry.BehaviorAfterDispose)">
+            <summary>
+            <para>
+            Synchronously wait until all records added by <c>SendRecord()</c> methods are sent to the Collectors (or dropped)
+            and then dispose the Telemetry Manager.
+            </para>
+            <para>
+             After call to this method all invocations of <c>SendRecord()</c> simply drop records without notifications
+             (unless <paramref name="behaviorAfterDispose" /> specifies otherwise).
+            </para>
+            <para>
+             It can be called once only.
+            </para>
+            </summary>
+            <param name="behaviorAfterDispose">Defined behavior of methods of the library when the library is disposed.</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.GetTelemetryManagerForBackwardCompatibility">
+            <summary>
+            This is intended to use for backward compatibility or dependency injection.
+            Gets the internal <see cref="T:Microsoft.Applications.Telemetry.ITelemetryManager" /> which is used to send the data.
+            <remarks>
+            This is for advanced usage, we may introduce breaking changes to this interface in the future.
+            DISCLAIMER: This method is only supported for limited usage of people who are aware of the consequences.
+            You will lose all management that evolves around the interface, which possibly includes additional sanity checks,
+            lifecycle management and thread-safetly providers. This, for example, includes the guards against double-disposal
+            of the internal objects and buffers. Misuse will result in runtime failures.
+            </remarks>
+            </summary>
+            <returns>
+              <see cref="T:Microsoft.Applications.Telemetry.ITelemetryManager" /> the internal Telemetry Manager
+            </returns>
+        </member>
+        <member name="T:Microsoft.Applications.Telemetry.Server.LogManager.Metrics">
+            <summary>
+            This class contains methods and properties for pushing Metrics to the telemetry pipeline.
+            Metrics include Aggregations, Gauges and Operations. The functions and properties in this class are higher level 
+            abstractions for ease of use. They internally use the publicly available methods on <see cref="T:Microsoft.Applications.Telemetry.ILogger" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Applications.Telemetry.Server.LogManager.Metrics.AggregatorBuilder">
+            <summary>
+                  Gets the builder to create instances of MetricsAggregator, register enums and start/stop the aggregation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.LogManager.Metrics.ConfigureAggregators(System.TimeSpan,System.Int32,Microsoft.Applications.Telemetry.Metrics.Core.MetricOptions)">
+            <summary>
+            The metrics aggregator creates aggregated statistics for metrics and creates an AggregatedMetric event for each metric to send
+            the statistics to ARIA. This method should only be called once to set up the metrics aggregators.
+                </summary>
+            <param name="aggregationInterval">The time interval for aggregating metrics and creating an aggregated statistic.</param>
+            <param name="mergeFactor">Number of aggregated statistics that should be merged before sending to ARIA.</param>
+            <param name="defaultMetricOptions">The metric options to be used by default for every metric.</param>
+        </member>
+        <member name="T:Microsoft.Applications.Telemetry.Server.TestSupport">
+            <summary>
+            The class provides a set of methods, which makes testing 
+            possible (or at least easier).
+            Please use it in tests only. Never use it in production!
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.TestSupport.MoveTelemetryBackToUninitialized">
+            <summary>
+            Helper which must be used in tests only. 
+            It resets the LogManager state to the one from before initialization. 
+            If the LogManager is still running, FlushAndTeardown is called first. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager">
+            <summary>
+            <para>
+            <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager" /> allows one to send events (called records) to 
+            the Skype Data RV Pipeline in an easy and convenient way. 
+            <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager" /> is a wrapper for <see cref="T:Microsoft.Applications.Telemetry.TelemetryManager" /> tailored for 
+            server usage (or actually any non-azure server). 
+            </para>
+            <para>
+      This class is static, so records can be easily sent from every place in your code.
+    </para><para>
+      Before sending records one of initialization methods must be called.
+      Use
+      <Sends>
+    <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SendRecord(Microsoft.Applications.Telemetry.DataModels.Record)" /> or <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SendRecords(System.Collections.Generic.IEnumerable{Microsoft.Applications.Telemetry.DataModels.Record})" />
+  </Sends>
+      to send records to the Collectors.
+    </para><para>
+      One can listen to notifications related to records sending.
+      In order to register for the notifications please get <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryManagerEvents" />
+      and use one of its method.
+    </para><para>
+      <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.FlushAndDispose(Microsoft.Applications.Telemetry.BehaviorAfterDispose)" /> could be called to be sure all records were sent before shutdown.
+    </para>
+            <para>
+            <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager" /> in its initialization methods tries to create performance counters (this can be controlled by 
+            <see cref="P:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.PerformanceCountersEnabled" /> settings). Please note that administrator permissions
+            are necessary to create performance counter category. If application is run without appropriate rights,
+            then warning is printed and <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager" /> starts without performance counters. 
+            To overcome this, one can call <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.InstallPerformanceCounterCategory(System.String)" /> form 
+            e.g. privileged startup script to install performance counters before using the library with regular permissions. 
+            </para>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.Initialize(System.String,System.Uri,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initialize the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>. Exactly one of initialization methods must be called prior to sending records.
+            <see cref="T:System.ArgumentException"/> is thrown otherwise. 
+            <remarks>
+            This method automatically adds "auto identifiers" (version of the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>, 
+            this library name) to  <see cref="P:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.Identifiers"/>.
+            </remarks>
+            </summary>
+            <param name="source">Name of the records' source (e.g. your team name).</param>
+            <param name="collectorUri">
+            URL of the Collector to which records will be sent.
+            If null, then <see cref="F:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.DefaultCollectorUrlInIntegration"/> is used
+            </param>
+            <param name="additionalIdentifiers">
+            Additional identifiers in form of Key/Value dictionary 
+            (e.g. "ServerName" => "red102"). The identifiers dictionary is a piece of information
+            that is constant across all calls to SendRecord() methods, so there is no point
+            in attaching it to every single record.
+            </param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.Initialize(System.String,System.String,System.Uri,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initialize the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>. Exactly one of initialization methods must be called prior to sending records.
+            <see cref="T:System.ArgumentException"/> is thrown otherwise. 
+            <remarks>
+            This method automatically adds "auto identifiers" (version of the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>, 
+            this library name) to  <see cref="P:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.Identifiers"/>.
+            </remarks>
+            </summary>
+            <param name="source">Name of the records' source (e.g. your team name).</param>
+            <param name="tenantToken">The tenant token for your tenant.</param>
+            <param name="collectorUri">
+            URL of the Collector to which records will be sent.
+            If null, then <see cref="F:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.DefaultCollectorUrlInIntegration"/> is used
+            </param>
+            <param name="additionalIdentifiers">
+            Additional identifiers in form of Key/Value dictionary 
+            (e.g. "ServerName" => "red102"). The identifiers dictionary is a piece of information
+            that is constant across all calls to SendRecord() methods, so there is no point
+            in attaching it to every single record.
+            </param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.AdvancedInitialize(Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettingsBuilder)">
+            <summary>
+            <para>
+            Initialize the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>. Exactly one of initialization methods must be called prior to sending records.
+            <see cref="T:System.ArgumentException"/> is thrown otherwise. 
+            </para>
+            <para>
+            This version of initialization should be used with special care. Wrong settings can break your application,
+            consume big amount of resources, or even make sending records (almost) not possible.
+            </para>
+            <para>
+            Please use this version of initialization only when you are aware of consequences!
+            </para>
+            <remarks>
+            This method automatically adds "auto identifiers" (version of the <see cref="T:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager"/>, 
+            this library name) to  <see cref="P:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.Identifiers"/>.
+            </remarks>
+            </summary>
+            <param name="settingsBuilder">Settings Builder for Telemetry Manager Settings.</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SendRecord(Microsoft.Applications.Telemetry.DataModels.Record)">
+            <summary>
+            <para>
+      Schedule sending a single record to the Collectors and return immediately
+      (don't wait for real sending the data over network).
+    </para>
+            <para>
+      Note that the library batches records internally and groups them into larger portions
+      before sending (to optimize network/CPU usage).
+    </para><para>
+      Data provided in the parameter is validated by call to <see cref="M:Microsoft.Applications.Telemetry.DataModels.Record.IsValid(System.String@)" />
+    </para><para>
+      One can get more insight into record(s) sending process by registering for
+      events provided by <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryManagerEvents" />.
+    </para><para>
+      The method is thread-safe.
+    </para>
+            <para>
+      One of initialization method must be called first.
+      Calling this method after <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.FlushAndDispose(Microsoft.Applications.Telemetry.BehaviorAfterDispose)" /> results in dropping passed records without notification
+      (unless <c>behaviorAfterDispose</c> specified otherwise).
+    </para>
+            </summary>
+            <param name="record">A record to send.</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SendRecords(System.Collections.Generic.IEnumerable{Microsoft.Applications.Telemetry.DataModels.Record})">
+            <summary>
+            <para>
+      Schedule sending records to the Collectors and return immediately
+      (don't wait for real sending the data over network).
+    </para>
+            <para>
+      Note that the library batches records internally and groups them into larger portions
+      before sending (to optimize network/CPU usage).
+    </para><para>
+      Data provided in the parameter is validated by call to <see cref="M:Microsoft.Applications.Telemetry.DataModels.Record.IsValid(System.String@)" />
+    </para><para>
+      One can get more insight into record(s) sending process by registering for
+      events provided by <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryManagerEvents" />.
+    </para><para>
+      The method is thread-safe.
+    </para>
+            <para>
+      One of initialization method must be called first.
+      Calling this method after <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.FlushAndDispose(Microsoft.Applications.Telemetry.BehaviorAfterDispose)" /> results in dropping passed records without notification
+      (unless <c>behaviorAfterDispose</c> specified otherwise).
+    </para>
+            </summary>
+            <param name="records">Records to send.</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.GetTelemetryManagerEvents">
+            <summary>
+      <para>
+        Gets <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryManagerEvents" /> which provides notifications related to records sending.
+      </para>
+      <para>
+        One of initialization method must be called first!
+      </para>
+      <para>
+        The method is thread-safe.
+      </para>
+    </summary><returns>
+      <see cref="T:Microsoft.Applications.Telemetry.Events.TelemetryManagerEvents" /> associated with this Telemetry Manager
+    </returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.FlushAndDispose(Microsoft.Applications.Telemetry.BehaviorAfterDispose)">
+            <summary>
+      <para>
+        Synchronously wait until all events added by the loggers are sent to the Collectors (or dropped)
+        and then dispose the Telemetry Manager.
+      </para>
+      <para>
+        After call to this method all events added to be sent are simply dropped without notification
+        (unless <paramref name="behaviorAfterDispose" /> specifies otherwise).
+      </para>
+      <para>
+        It can be called once only.
+      </para>
+    </summary><param name="behaviorAfterDispose">Defined behavior of methods of the library when the library is disposed.</param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.GetImmutableTelemetryManagerSettings">
+            <summary>
+      <para>
+        Return current settings used by the Telemetry Manager.
+        Please note that returned object is immutable.
+      </para>
+      <para>
+        One of initialization method must be called first.
+      </para>
+    </summary><returns>Immutable settings used by the Telemetry Manager</returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.GetDefaultAuthenticationSettings">
+            <summary>
+      Get the default authentication settings. This method could be useful when you want to
+      create custom settings as <see cref="T:Microsoft.Applications.Telemetry.Settings.AuthenticationSettings" /> is required parameter of
+      <see cref="T:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettingsBuilder" /> and <see cref="T:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings" />.
+    </summary><returns>Default authentication settings.</returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.InstallPerformanceCounterCategory(System.String)">
+            <summary>
+      Installs the performance counter category, including all the performance counter that are known.
+      An example of use would be to call this method from an external script (e.g. at boot time or as a StartupTask in Azure),
+      as this method doesn't need an initialized state of the TelemetryManager.
+      Please consult the examples for further notice.
+      <remarks>
+        <para>
+          This method must be called before any call to the initialization methods.
+        </para>
+        <para>
+          For this method to work properly, you will need elevated rights.
+        </para>
+        <para>
+          In case of upgrading (e.g. adding new performance counters in code, but without registering the category again),
+          the library will skip the registration step of the new counters if no sufficient rights are available.
+          That means that the library should not throw any errors in this upgrade scenario.
+          However the unregistered counters aren't propagated back to the OS.
+        </para>
+      </remarks>
+    </summary><param name="categoryName">
+      Optional. Defines name of performance category counters should be installed into. It should be consistent with
+      <c>"TelemetryManagerSettings.PerformanceCountersCategoryName" </c>
+    </param>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.GetInstanceForDependencyInjection">
+            <!-- No matching elements were found for the following include tag --><include file="../Telemetry.Client.Documentation/shared.xml" path="Documentation/GetInstanceForDependencyInjection/*" />
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.BackToUninitialized">
+            <summary>
+      Helper which must be used in tests only. It resets the Telemetry Manager state
+      to the one from before initialization. If the class is still running,
+      <c>FlushAndDispose()</c> is called first.
+    </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.PrepareAutoIdentifiers(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Prepares identifiers which describes this library (library name, version) and merge them with identifiers provided by user (if any).
+            </summary>
+            <param name="additionalIdentifiers">additional identifiers specified by user. Null is allowed.</param>
+            <returns>Dictionary of identifiers which is merge of auto-identifiers and user specified identifiers.</returns>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SetupBeacons">
+            <summary>
+            Sets up beacon APIs to send information about the telemetry manager without the user having to lift a finger.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.ScheduleBeaconPerfCounters(System.Collections.Generic.List{System.String})">
+            <summary>
+            Sets up performance counters to send periodically. Should not be used except by <see cref="M:Microsoft.Applications.Telemetry.Server.ServerTelemetryManager.SetupBeaconPerfCounters"/> or in testing.
+            
+            Automatically includes a set of basic performance counters, and the user may pass in more.
+            The user may also specify the cadence in the config file, which has a default value.
+            </summary>
+            <param name="additionalPerfCounters">Additional performance counters to be sent, probably gotten from a config file.</param>
+        </member>
+        <member name="T:Microsoft.Applications.Telemetry.Server.AriaTraceListener">
+            <summary>
+      <para>
+        Forwards all messages sent to Trace to the Skype Pipeline.
+        To ensure that all traces are sent to the pipeline, it is necessary to call the Dispose method,
+        implemented from <see cref="T:System.IDisposable" />, which waits until all traces are really sent
+        to the Skype Pipe Collectors.
+      </para>
+      <para>
+        The class creates a <see cref="T:Microsoft.Applications.Telemetry.TelemetryManager" /> internally and uses it to
+        send Traces to the Collectors.
+      </para>
+    </summary><example>
+      <code>
+        // create the Trace Listener (by default events less important than Warnings are filtered out)
+        // which reports data to Skype Data RV Collectors in Integration environment
+        var skypeTraceListener = new SkypeTraceListener(source: "YourRvName");
+
+        // install it
+        Trace.Listeners.Add(skypeTraceListener);
+
+        // and finally use it
+        Trace.TraceError("Your error message");
+
+        // If you want to be sure that all traces are sent to the Skype Data RV Pipeline
+        // you have to dispose the listener. Dispose() call guarantees that all traces
+        // are flushed.
+        Trace.Listeners.Remove(skypeTraceListener);
+        skypeTraceListener.Dispose();
+      </code>
+    </example>
+        </member>
+        <member name="M:Microsoft.Applications.Telemetry.Server.AriaTraceListener.#ctor(System.String,System.String,System.Diagnostics.SourceLevels,System.Uri,System.Boolean)">
+            <summary>
+      Initializes a new instance of the <see cref="T:Microsoft.Applications.Telemetry.Server.AriaTraceListener" /> class.
+    </summary><param name="traceEventName">Specifies the name for the trace log events</param><param name="tenantToken">The tenant token for your team.</param><param name="defaultFilteringLevel">
+      Specifies the level of filtering of trace messages.
+      By default, events less important than Warnings are filtered out
+    </param><param name="collectorUri">
+      URL of the Collector to which records will be sent.
+      If null or none is provided, then it defaults to <see cref="F:Microsoft.Applications.Telemetry.Settings.TelemetryManagerSettings.DefaultCollectorUrlInIntegration" />.
+    </param><param name="splitTracesByLevel">
+      Indicates whether we should send up separate event Names for each TraceLevel. It defaults to false.
+      For e.g if traceEventName is set to "MyRoleTrace" and splitTracesByLevel is false, all logs will be sent up
+      with event name as MyRoleTrace
+      But if splitTracesByLevel is set to true, then the logs will sent up with event names as
+      MyRoleTraceInformation, MyRoleTraceError, MyRoleWarning.
+      Sending them up as separate event names could make searching through the logs faster if you knew up front that
+      you only wanted to look through warnings or errors.
+    </param>
+        </member>
+    </members>
+</doc>

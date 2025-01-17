@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"[]>
+<plist version="1">
+    <dict>
+        <key>PayloadUUID</key>
+        <string>1C146304-DF5B-41F2-8AD4-17EA9A95D095</string>
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadOrganization</key>
+        <string>Microsoft Corporation</string>
+        <key>PayloadIdentifier</key>
+        <string>1C146304-DF5B-41F2-8AD4-17EA9A95D095</string>
+        <key>PayloadDisplayName</key>
+        <string>Defender - System Configuration</string>
+        <key>PayloadDescription</key>
+        <string />
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true />
+        <key>PayloadRemovalDisallowed</key>
+        <true />
+        <key>PayloadScope</key>
+        <string>System</string>
+        <key>PayloadContent</key>
+        <array>
+            <dict>
+                <key>PayloadUUID</key>
+                <string>E23CA4BE-65BA-4685-89D6-041F82994606</string>
+                <key>PayloadType</key>
+                <string>com.apple.TCC.configuration-profile-policy</string>
+                <key>PayloadOrganization</key>
+                <string>Microsoft Corporation</string>
+                <key>PayloadIdentifier</key>
+                <string>E23CA4BE-65BA-4685-89D6-041F82994606</string>
+                <key>PayloadDisplayName</key>
+                <string>Privacy Preferences Policy Control</string>
+                <key>PayloadDescription</key>
+                <string />
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>PayloadEnabled</key>
+                <true />
+                <key>Services</key>
+                <dict>
+                    <key>Accessibility</key>
+                    <array>
+                        <dict>
+                            <key>Identifier</key>
+                            <string>com.microsoft.dlp.daemon</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.microsoft.dlp.daemon" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>StaticCode</key>
+                            <integer>0</integer>
+                            <key>Allowed</key>
+                            <integer>1</integer>
+                        </dict>
+                    </array>
+                </dict>
+            </dict>
+            <dict>
+                <key>PayloadDescription</key>
+                <string>Background Service Management for Microsoft Defender</string>
+                <key>PayloadIdentifier</key>
+                <string>4DB96276-2310-44C2-AE11-C6E761FB0304.privacy.04102481-C1F1-44F2-B548-E0B554890493</string>
+                <key>PayloadUUID</key>
+                <string>A9BF8FA9-CEA3-42A2-B8C1-E1998B84CBB0</string>
+                <key>Rules</key>
+                <array>
+                    <dict>
+                        <key>RuleType</key>
+                        <string>LabelPrefix</string>
+                        <key>RuleValue</key>
+                        <string>com.microsoft.fresno</string>
+                    </dict>
+                    <dict>
+                        <key>RuleType</key>
+                        <string>LabelPrefix</string>
+                        <key>RuleValue</key>
+                        <string>com.microsoft.dlp</string>
+                    </dict>
+                </array>
+                <key>PayloadType</key>
+                <string>com.apple.servicemanagement</string>
+                <key>PayloadDisplayName</key>
+                <string>Background Service Management for Microsoft Defender</string>
+            </dict>
+            <dict>
+                <key>PayloadUUID</key>
+                <string>782EFFBA-A158-4571-822D-D085BA43ED7A</string>
+                <key>PayloadType</key>
+                <string>com.apple.TCC.configuration-profile-policy</string>
+                <key>PayloadOrganization</key>
+                <string>Microsoft Corporation</string>
+                <key>PayloadIdentifier</key>
+                <string>782EFFBA-A158-4571-822D-D085BA43ED7A</string>
+                <key>PayloadDisplayName</key>
+                <string>Privacy Preferences Policy Control</string>
+                <key>PayloadDescription</key>
+                <string />
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>PayloadEnabled</key>
+                <true />
+                <key>Services</key>
+                <dict>
+                    <key>SystemPolicyAllFiles</key>
+                    <array>
+                        <dict>
+                            <key>Identifier</key>
+                            <string>com.microsoft.wdav</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.microsoft.wdav" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>StaticCode</key>
+                            <integer>0</integer>
+                            <key>Allowed</key>
+                            <integer>1</integer>
+                        </dict>
+                        <dict>
+                            <key>Identifier</key>
+                            <string>com.microsoft.wdav.epsext</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.microsoft.wdav.epsext" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>StaticCode</key>
+                            <integer>0</integer>
+                            <key>Allowed</key>
+                            <integer>1</integer>
+                        </dict>
+                        <dict>
+                            <key>Identifier</key>
+                            <string>com.microsoft.dlp.daemon</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.microsoft.dlp.daemon" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>StaticCode</key>
+                            <integer>0</integer>
+                            <key>Allowed</key>
+                            <integer>1</integer>
+                        </dict>
+                    </array>
+                </dict>
+            </dict>
+            <dict>
+                <key>FilterDataProviderBundleIdentifier</key>
+                <string>com.microsoft.wdav.netext</string>
+                <key>FilterDataProviderDesignatedRequirement</key>
+                <string>identifier "com.microsoft.wdav.netext" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+                <key>FilterGrade</key>
+                <string>inspector</string>
+                <key>FilterPackets</key>
+                <false />
+                <key>FilterSockets</key>
+                <true />
+                <key>FilterType</key>
+                <string>Plugin</string>
+                <key>PayloadDisplayName</key>
+                <string>Web Content Filter Payload</string>
+                <key>PayloadIdentifier</key>
+                <string>283F4BF0-788A-4435-9B62-3E00896358D7</string>
+                <key>PayloadOrganization</key>
+                <string>MEM v ENNBEE</string>
+                <key>PayloadType</key>
+                <string>com.apple.webcontent-filter</string>
+                <key>PayloadUUID</key>
+                <string>283F4BF0-788A-4435-9B62-3E00896358D7</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>PluginBundleID</key>
+                <string>com.microsoft.wdav</string>
+                <key>UserDefinedName</key>
+                <string>Microsoft Defender Content Filter</string>
+            </dict>
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>Notifications Payload</string>
+                <key>PayloadIdentifier</key>
+                <string>05BF7221-2470-477D-99B3-1729B1932BDB</string>
+                <key>PayloadOrganization</key>
+                <string>Microsoft Corporation</string>
+                <key>PayloadType</key>
+                <string>com.apple.notificationsettings</string>
+                <key>PayloadUUID</key>
+                <string>05BF7221-2470-477D-99B3-1729B1932BDB</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>NotificationSettings</key>
+                <array>
+                    <dict>
+                        <key>AlertType</key>
+                        <integer>1</integer>
+                        <key>BadgesEnabled</key>
+                        <true />
+                        <key>BundleIdentifier</key>
+                        <string>com.microsoft.autoupdate2</string>
+                        <key>CriticalAlertEnabled</key>
+                        <false />
+                        <key>NotificationsEnabled</key>
+                        <true />
+                        <key>ShowInLockScreen</key>
+                        <false />
+                        <key>ShowInNotificationCenter</key>
+                        <true />
+                        <key>SoundsEnabled</key>
+                        <true />
+                    </dict>
+                    <dict>
+                        <key>AlertType</key>
+                        <integer>1</integer>
+                        <key>BadgesEnabled</key>
+                        <true />
+                        <key>BundleIdentifier</key>
+                        <string>com.microsoft.wdav.tray</string>
+                        <key>CriticalAlertEnabled</key>
+                        <false />
+                        <key>NotificationsEnabled</key>
+                        <true />
+                        <key>ShowInLockScreen</key>
+                        <false />
+                        <key>ShowInNotificationCenter</key>
+                        <true />
+                        <key>SoundsEnabled</key>
+                        <true />
+                    </dict>
+                </array>
+            </dict>
+        </array>
+    </dict>
+</plist>

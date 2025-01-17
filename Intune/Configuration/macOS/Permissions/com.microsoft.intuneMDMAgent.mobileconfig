@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Microsoft Intune Agent Permissions</string>
+			<key>PayloadDisplayName</key>
+			<string>Microsoft Intune Agent Permissions</string>
+			<key>PayloadIdentifier</key>
+			<string>6C76DD19-1770-40DE-A243-45EEEAF30958</string>
+			<key>PayloadOrganization</key>
+			<string>MEM v ENNBEE</string>
+			<key>PayloadType</key>
+			<string>com.apple.TCC.configuration-profile-policy</string>
+			<key>PayloadUUID</key>
+			<string>1E87D11A-A85B-41AC-8D51-B50D8F9B29F1</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Services</key>
+			<dict>
+				<key>AppleEvents</key>
+				<array>
+					<dict>
+						<key>AEReceiverCodeRequirement</key>
+						<string>identifier "com.apple.finder" and anchor apple</string>
+						<key>AEReceiverIdentifier</key>
+						<string>com.apple.finder</string>
+						<key>AEReceiverIdentifierType</key>
+						<string>bundleID</string>
+						<key>Allowed</key>
+						<true/>
+						<key>CodeRequirement</key>
+						<string>identifier "com.microsoft.intuneMDMAgent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+						<key>Comment</key>
+						<string></string>
+						<key>Identifier</key>
+						<string>com.microsoft.intuneMDMAgent</string>
+						<key>IdentifierType</key>
+						<string>bundleID</string>
+					</dict>
+					<dict>
+						<key>AEReceiverCodeRequirement</key>
+						<string>identifier "com.apple.systemevents" and anchor apple</string>
+						<key>AEReceiverIdentifier</key>
+						<string>com.apple.systemevents</string>
+						<key>AEReceiverIdentifierType</key>
+						<string>bundleID</string>
+						<key>Allowed</key>
+						<true/>
+						<key>CodeRequirement</key>
+						<string>identifier "com.microsoft.intuneMDMAgent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9</string>
+						<key>Comment</key>
+						<string></string>
+						<key>Identifier</key>
+						<string>com.microsoft.intuneMDMAgent</string>
+						<key>IdentifierType</key>
+						<string>bundleID</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Microsoft Intune Agent Permissions</string>
+	<key>PayloadDisplayName</key>
+	<string>Microsoft Intune Agent Permissions</string>
+	<key>PayloadIdentifier</key>
+	<string>6C76DD19-1770-40DE-A243-45EEEAF30958</string>
+	<key>PayloadOrganization</key>
+	<string>MEM v ENNBEE</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>720C21AD-1F65-4D5B-AED1-8EAED71BF462</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

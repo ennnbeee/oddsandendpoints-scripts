@@ -1,0 +1,50 @@
+﻿{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/configurationPolicies/$entity",
+    "createdDateTime": "2024-07-11T16:36:29.6162136Z",
+    "creationSource": null,
+    "description": "",
+    "lastModifiedDateTime": "2024-07-11T16:37:37.2889886Z",
+    "name": "CIS (L1) Additional Recommendations - iOS/iPadOS Intune 1.0.0",
+    "platforms": "iOS",
+    "priorityMetaData": null,
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "settingCount": 1,
+    "technologies": "mdm,appleRemoteManagement",
+    "id": "33f98155-4770-4cd3-b106-0382fac65256",
+    "templateReference": {
+        "templateId": "",
+        "templateFamily": "none",
+        "templateDisplayName": null,
+        "templateDisplayVersion": null
+    },
+    "settings": [
+        {
+            "id": "0",
+            "settingInstance": {
+                "@odata.type": "#microsoft.graph.deviceManagementConfigurationGroupSettingCollectionInstance",
+                "settingDefinitionId": "com.apple.profileremovalpassword_com.apple.profileremovalpassword",
+                "settingInstanceTemplateReference": null,
+                "groupSettingCollectionValue": [
+                    {
+                        "settingValueTemplateReference": null,
+                        "children": [
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationSimpleSettingInstance",
+                                "settingDefinitionId": "com.apple.profileremovalpassword_removalpassword",
+                                "settingInstanceTemplateReference": null,
+                                "simpleSettingValue": {
+                                    "@odata.type": "#microsoft.graph.deviceManagementConfigurationSecretSettingValue",
+                                    "settingValueTemplateReference": null,
+                                    "value": "b985c507-22f3-46cb-8cb8-74f5876adf3e",
+                                    "valueState": "encryptedValueToken"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

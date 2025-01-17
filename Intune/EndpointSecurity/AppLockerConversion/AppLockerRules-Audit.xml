@@ -1,0 +1,548 @@
+﻿<AppLockerPolicy Version="1">
+  <RuleCollection Type="Exe" EnforcementMode="AuditOnly">
+    <FilePathRule Id="fd686d83-a829-4351-8ff4-27c7de5755d2" Name="(Default Rule) All files" Description="Allows members of the local Administrators group to run all applications." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="cdfd5d1c-828f-4bd6-9542-1395c6088f82" Name="All files located in the Program Files folder" Description="Allows members of the Everyone group to run applications that are located in the Program Files folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edge\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edgewebview\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\google\chrome\application\setupmetrics\*" />
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="38080c1b-54bc-4f7e-804d-fafb70bf781b" Name="All files located in the Windows folder" Description="Allows members of the Everyone group to run applications that are located in the Windows folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia:*" />
+        <FilePathCondition Path="%WINDIR%\registration\crmlog\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv:*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data:*" />
+        <FilePathCondition Path="%SYSTEM32%\com\dmp\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsenseimdscollector\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsensendr\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata:*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall\*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall:*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys\*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys:*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\printers\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\servers\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks_migrated\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\temp\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\tracing:*" />
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="MSBUILD.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="RUNAS.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="REGSVCS.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="WMIC.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="PRESENTATIONHOST.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="INTERNET EXPLORER" BinaryName="MSHTA.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="CIPHER.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="INSTALLUTIL.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="MICROSOFT.WORKFLOW.COMPILER.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="IEEXEC.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® .NET FRAMEWORK" BinaryName="REGASM.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="43580299-5b54-473b-a0a5-146a1f86724b" Name="Additional allowed path: %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" Description="Allows Everyone to execute from %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" />
+      </Conditions>
+    </FilePathRule>
+    <FileHashRule Id="456bd77c-5528-4a93-8ab8-51c6b950c541" Name="Rule set created 2024-10-14 11:01" Description="Never-applicable rule to document that this AppLocker rule set was created via AaronLocker at 2024-10-14 11:01" UserOrGroupSid="S-1-3-0" Action="Deny">
+      <Conditions>
+        <FileHashCondition>
+          <FileHash Type="SHA256" Data="0x0000000000000000000000000000000000000000000000000020241014110108" SourceFileName="DateTimeInfo" SourceFileLength="1" />
+        </FileHashCondition>
+      </Conditions>
+    </FileHashRule>
+    <FilePublisherRule Id="a507c65a-384b-4279-a5a8-4e2a0148fe75" Name="Microsoft Teams: Signer/product rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT TEAMS" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT TEAMS" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="338e2d85-c7ab-445d-84b5-98ff8015a719" Name="Google Chrome SWReporter tool: Signer/product/file rule for O=GOOGLE LLC, L=MOUNTAIN VIEW, S=CA, C=US/SOFTWARE REPORTER TOOL/SOFTWARE_REPORTER_TOOL.EXE" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=GOOGLE LLC, L=MOUNTAIN VIEW, S=CA, C=US" ProductName="SOFTWARE REPORTER TOOL" BinaryName="SOFTWARE_REPORTER_TOOL.EXE">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+  <RuleCollection Type="Msi" EnforcementMode="AuditOnly">
+    <FilePathRule Id="c64e52fe-bd05-43ed-ae91-f3612182829e" Name="All Windows Installer files under %windir%\ccmcache" Description="Allows everyone to run installer files in the SCCM cache." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\ccmcache\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="5b290184-345a-4453-b184-45305f6d9a54" Name="(Default Rule) All Windows Installer files in %systemdrive%\Windows\Installer" Description="Allows members of the Everyone group to run all Windows Installer files located in %systemdrive%\Windows\Installer." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\Installer\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="64ad46ff-0d71-4fa0-a30b-3f3d30c5433d" Name="(Default Rule) All Windows Installer files" Description="Allows members of the local Administrators group to run all Windows Installer files." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*.*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePublisherRule Id="e9a69102-3de5-4a41-b22c-59e883eb253d" Name="Microsoft Teams: Signer/product rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT TEAMS" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT TEAMS" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="16d78662-caa6-41ff-ab61-2f2e48287de5" Name="Microsoft-signed MSI files: Signer rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+  <RuleCollection Type="Script" EnforcementMode="AuditOnly">
+    <FilePathRule Id="ed97d0cb-15ff-430f-b82c-8d7832957725" Name="(Default Rule) All scripts" Description="Allows members of the local Administrators group to run all scripts." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="742c089a-d5bc-4f1e-98dc-2535b7b164b5" Name="All scripts located in the Program Files folder" Description="Allows members of the Everyone group to run scripts that are located in the Program Files folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edge\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edgewebview\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\google\chrome\application\setupmetrics\*" />
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="2d2e2715-50d1-4f32-9885-7c935e189f44" Name="All scripts located in the Windows folder" Description="Allows members of the Everyone group to run scripts that are located in the Windows folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia:*" />
+        <FilePathCondition Path="%WINDIR%\registration\crmlog\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv:*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data:*" />
+        <FilePathCondition Path="%SYSTEM32%\com\dmp\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsenseimdscollector\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsensendr\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata:*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall\*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall:*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys\*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys:*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\printers\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\servers\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks_migrated\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\temp\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\tracing:*" />
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="08cc2529-90a8-4b8a-ba72-20b2cabf316a" Name="Additional allowed path: %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" Description="Allows Everyone to execute from %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePublisherRule Id="68e1a159-5fc3-49d7-98e5-36419c16f4d9" Name="Microsoft Teams: Signer/product rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT TEAMS" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT TEAMS" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="70dbd81d-a52b-4786-b798-d7e09c13e45e" Name="Microsoft-signed script files: Signer rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+  <RuleCollection Type="Dll" EnforcementMode="AuditOnly">
+    <FilePublisherRule Id="0645a114-e55a-4d95-9511-5905489867c6" Name="Disallow PowerShell v2" Description="Explicitly deny signed DLLs needed for PowerShell v2 (implicitly allow 10.* and above)" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT (R) WINDOWS (R) OPERATING SYSTEM" BinaryName="SYSTEM.MANAGEMENT.AUTOMATION.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="9.9.9.9" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePathRule Id="fe64f59f-6fca-45e5-a731-0f6715327c38" Name="(Default Rule) All DLLs" Description="Allows members of the local Administrators group to load all DLLs." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="860f0fa5-afd9-4929-880b-cf0c6f052c67" Name="Microsoft Windows DLLs" Description="Allows members of the Everyone group to load DLLs located in the Windows folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%WINDIR%\debug\wia\*" />
+        <FilePathCondition Path="%WINDIR%\debug\wia:*" />
+        <FilePathCondition Path="%WINDIR%\registration\crmlog\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\intel\ipfsrv:*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons\*" />
+        <FilePathCondition Path="%WINDIR%\serviceprofiles\localservice\appdata\local\microsoft\dlna\deviceicons:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\detectionverificationdrv\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\helloface\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\hidtelephony\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipf_umdf2\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\ipfumdf\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorscx0102\data:*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data\*" />
+        <FilePathCondition Path="%WINDIR%\servicestate\sensorshidclassdriver\data:*" />
+        <FilePathCondition Path="%SYSTEM32%\com\dmp\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsenseimdscollector\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\config\systemprofile\appdata\local\packages\lpacsensendr\ac\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata\*" />
+        <FilePathCondition Path="%SYSTEM32%\drivers\driverdata:*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall\*" />
+        <FilePathCondition Path="%SYSTEM32%\logfiles\firewall:*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys\*" />
+        <FilePathCondition Path="%SYSTEM32%\microsoft\crypto\rsa\machinekeys:*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\drivers\color\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\printers\*" />
+        <FilePathCondition Path="%SYSTEM32%\spool\servers\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks\*" />
+        <FilePathCondition Path="%SYSTEM32%\tasks_migrated\*" />
+        <FilePathCondition Path="%WINDIR%\tasks\*" />
+        <FilePathCondition Path="%WINDIR%\temp\*" />
+        <FilePathCondition Path="%WINDIR%\tracing\*" />
+        <FilePathCondition Path="%WINDIR%\tracing:*" />
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="e431d080-a8e3-48d6-904b-19bda95b3fb7" Name="All DLLs located in the Program Files folder" Description="Allows members of the Everyone group to load DLLs that are located in the Program Files folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+      <Exceptions>
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edge\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\microsoft\edgewebview\application\setupmetrics\*" />
+        <FilePathCondition Path="%PROGRAMFILES%\google\chrome\application\setupmetrics\*" />
+      </Exceptions>
+    </FilePathRule>
+    <FilePathRule Id="4f39bf10-f9ea-49d5-ba26-55535ba5fb35" Name="Disallow PowerShell v2" Description="Explicitly deny unsigned JIT native images needed for PowerShell v2" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\assembly\NativeImages_v2.0.50727_32\System.Management.A#\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="31d0a17e-420f-4b79-953f-d681fd69289f" Name="Disallow PowerShell v2" Description="Explicitly deny unsigned JIT native images needed for PowerShell v2" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\assembly\NativeImages_v2.0.50727_64\System.Management.A#\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="994f595d-9dc2-4c14-826d-40f25447382f" Name="Additional allowed path: %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" Description="Allows Everyone to execute from %OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\PROGRAMDATA\MICROSOFT\WINDOWS DEFENDER\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePublisherRule Id="907d3611-ca07-475e-a3b8-e1a16de3ad73" Name="Microsoft Teams: Signer/product rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT TEAMS" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT TEAMS" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="fd2d530f-2954-4c25-a906-51595a2e27a7" Name="Allow selected files from %OSDRIVE%\.~BT\SOURCES during Windows upgrade: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® WINDOWS® OPERATING SYSTEM/GENERALTEL.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="GENERALTEL.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="31e7ab17-8225-4b50-a999-11a6669628b1" Name="Allow selected files from %OSDRIVE%\.~BT\SOURCES during Windows upgrade: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® WINDOWS® OPERATING SYSTEM/WDSCORE.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="WDSCORE.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="2f60e9fc-71ce-4213-b570-7fd995867e8d" Name="Allow selected files from %OSDRIVE%\.~BT\SOURCES during Windows upgrade: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® WINDOWS® OPERATING SYSTEM/AEINV.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® WINDOWS® OPERATING SYSTEM" BinaryName="AEINV.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="680ca8a4-ba8c-4bfe-9718-c66d29981d63" Name="MS Edge content protection: Signer/product rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/WIDEVINE CONTENT DECRYPTION MODULE" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="WIDEVINE CONTENT DECRYPTION MODULE" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="ab66ffef-e58d-4d21-bafc-eea6f22a3af0" Name="Google Chrome Cleanup: Signer/product rule for O=ESET, SPOL. S R.O., L=BRATISLAVA, C=SK/CHROME CLEANUP" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=ESET, SPOL. S R.O., L=BRATISLAVA, C=SK" ProductName="CHROME CLEANUP" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="db3abc76-e988-4b3a-ba9b-cf1e0b2780c6" Name="Google Chrome Cleanup: Signer/product rule for O=ESET, SPOL. S R.O., L=BRATISLAVA, S=SLOVAKIA, C=SK/CHROME CLEANUP" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=ESET, SPOL. S R.O., L=BRATISLAVA, S=SLOVAKIA, C=SK" ProductName="CHROME CLEANUP" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="da0c9acf-fb69-4ac1-9ebd-4c75d4669565" Name="Google Chrome Protector: Signer/product rule for O=ESET, SPOL. S R.O., L=BRATISLAVA, S=SLOVAKIA, C=SK/CHROME PROTECTOR" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=ESET, SPOL. S R.O., L=BRATISLAVA, S=SLOVAKIA, C=SK" ProductName="CHROME PROTECTOR" BinaryName="*">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="6d61d17f-101d-449a-9f6c-07d79983f7f6" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2005/MSVCP80.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2005" BinaryName="MSVCP80.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="5462f760-fa33-4374-9210-e8a1606ba47c" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2005/MSVCR80.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2005" BinaryName="MSVCR80.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="c8424d6a-6a33-4045-81c2-b8e62250f630" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2008/MFC90U.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2008" BinaryName="MFC90U.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="fe7c5642-c10f-48fc-8d21-041ef58688b4" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2008/MSVCP90.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2008" BinaryName="MSVCP90.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="dbef7bc7-8cb4-4481-974d-de4481b0e994" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2008/MSVCR90.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2008" BinaryName="MSVCR90.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="13d0ef58-1c91-4a78-9095-67f9af23c03b" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2010/MSVCP100.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2010" BinaryName="MSVCP100.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="5ae6f841-6f70-4a47-ab9a-da629048d126" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2010/MSVCR100_CLR0400.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2010" BinaryName="MSVCR100_CLR0400.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="9418366a-0954-4f04-82ae-58a505ea95e7" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2012/MFC110.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2012" BinaryName="MFC110.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="344506cc-5889-45c4-a498-06330cedcbac" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2012/MSVCP110.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2012" BinaryName="MSVCP110.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="32f29436-f818-4cef-bd93-f2a153877584" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2012/MSVCR110.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2012" BinaryName="MSVCR110.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="a34441ea-8adb-4584-bae5-e82227afeb53" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2013/MFC120.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2013" BinaryName="MFC120.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="fd5f50b8-a19c-41ae-a854-fe8280e06d5a" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2013/MFC120U.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2013" BinaryName="MFC120U.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="fbd57d6b-cbea-4f34-a85a-a3945403e7da" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2013/MSVCP120.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2013" BinaryName="MSVCP120.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="8765a710-ab26-40ad-af8f-0a63b99eef70" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2013/MSVCR120.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2013" BinaryName="MSVCR120.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="f10bab3d-6432-4360-ad40-abf327681830" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2015/MSVCP140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2015" BinaryName="MSVCP140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="3eb16f6f-d1f8-4523-a5ca-40472ba74f1c" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2015/VCRUNTIME140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2015" BinaryName="VCRUNTIME140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="121e4a4b-fafc-4d30-899f-aeec521e47ef" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2015/MFC140U.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2015" BinaryName="MFC140U.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="c79c3f32-d19a-4395-9ac6-55b01f3c80b5" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2017/MSVCP140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2017" BinaryName="MSVCP140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="c3cdb689-6fbf-47df-95f1-1d929160d2d1" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2017/VCRUNTIME140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2017" BinaryName="VCRUNTIME140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="339e131d-a2b0-482d-b032-b21da7bd655f" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 2017/MFC140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 2017" BinaryName="MFC140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="7e2228c2-3f87-47d0-9ff9-9062be593583" Name="MFC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO® 10/MFC100U.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO® 10" BinaryName="MFC100U.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="a3814967-9b19-4da3-82f6-e851c83ccdc3" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO®/MSVCP140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO®" BinaryName="MSVCP140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePublisherRule Id="62bdada9-6474-4ee9-8126-7bbab6fe66f9" Name="MSVC runtime DLL: Signer/product/file rule for O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US/MICROSOFT® VISUAL STUDIO®/VCRUNTIME140.DLL" Description="Information acquired from TrustedSigners.ps1" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="MICROSOFT® VISUAL STUDIO®" BinaryName="VCRUNTIME140.DLL">
+          <BinaryVersionRange LowSection="*" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+  <RuleCollection Type="Appx" EnforcementMode="AuditOnly">
+    <FilePublisherRule Id="a9e18c21-ff8f-43cf-b9fc-db40eed693ba" Name="(Default Rule) All signed packaged apps" Description="Allows members of the Everyone group to run packaged apps that are signed." UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="0.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+</AppLockerPolicy>

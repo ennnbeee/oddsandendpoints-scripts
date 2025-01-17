@@ -1,0 +1,144 @@
+{
+    "Rules": [
+        {
+            "SettingName": "Built-in Guest account disabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://www.stigviewer.com/stig/windows_server_20122012_r2_member_server/2020-06-16/finding/V-1113",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "The built-in guest account is enabled",
+                    "Description": "To comply with Cyber Essentials the built-in guest account must be disabled."
+                }
+            ]
+        },
+        {
+            "SettingName": "Autoplay disabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://www.stigviewer.com/stig/windows_10/2017-12-01/finding/V-63673",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Autoplay for all drives in enabled",
+                    "Description": "To comply with Cyber Essentials Autoplay for all devices must be disabled."
+                }
+            ]
+        },
+        {
+            "SettingName": "Defender antimalware service enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/turn-on-defender-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "The Defender Antimalware service is disabled",
+                    "Description": "To comply with Cyber Essentials your device must be protected by an antivirus solution."
+                }
+            ]
+        },
+        {
+            "SettingName": "Defender antispyware enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/turn-on-defender-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Defender Antispyware service is disabled",
+                    "Description": "To comply with Cyber Essentials your device must be protected by an antivirus solution."
+                }
+            ]
+        },
+        {
+            "SettingName": "Defender antivirus enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/turn-on-defender-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Defender Antivirus is disabled",
+                    "Description": "To comply with Cyber Essentials your device must be protected by an antivirus solution."
+                }
+            ]
+        },
+        {
+            "SettingName": "Defender signatures up-to-date",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/turn-on-defender-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Defender Antivirus signatures are out of date",
+                    "Description": "To comply with Cyber Essentials your device must be protected by an up-to-date antivirus solution."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows Defender Domain firewall enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/you-need-to-enable-defender-firewall-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Defender Firewall Domain Profile is disabled",
+                    "Description": "To comply with Cyber Essentials all network profiles firewalls must be enabled."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows Defender Private firewall enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/you-need-to-enable-defender-firewall-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Defender Firewall Private Profile is disabled",
+                    "Description": "To comply with Cyber Essentials all network profiles firewalls must be enabled."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows Defender Public firewall enabled",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/mem/intune/user-help/you-need-to-enable-defender-firewall-windows",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Defender Firewall Public Profile is disabled",
+                    "Description": "To comply with Cyber Essentials all network profiles firewalls must be enabled."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows operating system up-to-date",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "True",
+            "MoreInfoUrl": "https://support.microsoft.com/en-gb/windows/get-the-latest-windows-update-7d20e88c-0568-483a-37bc-c3885390d212",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows operating system is out of date",
+                    "Description": "To comply with Cyber Essentials your device must have the latest updates installed."
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+﻿{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/configurationPolicies/$entity",
+    "createdDateTime": "2024-07-11T16:08:39.1366332Z",
+    "creationSource": null,
+    "description": "",
+    "lastModifiedDateTime": "2024-07-11T16:08:39.1366332Z",
+    "name": "CIS (L2) Locked Screen Experience - iOS/iPadOS Intune 1.0.0",
+    "platforms": "iOS",
+    "priorityMetaData": null,
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "settingCount": 1,
+    "technologies": "mdm,appleRemoteManagement",
+    "id": "8465f1b3-1fdd-4d84-aad7-b5ea21109239",
+    "templateReference": {
+        "templateId": "",
+        "templateFamily": "none",
+        "templateDisplayName": null,
+        "templateDisplayVersion": null
+    },
+    "settings": [
+        {
+            "id": "0",
+            "settingInstance": {
+                "@odata.type": "#microsoft.graph.deviceManagementConfigurationGroupSettingCollectionInstance",
+                "settingDefinitionId": "com.apple.applicationaccess_com.apple.applicationaccess",
+                "settingInstanceTemplateReference": null,
+                "groupSettingCollectionValue": [
+                    {
+                        "settingValueTemplateReference": null,
+                        "children": [
+                            {
+                                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                                "settingDefinitionId": "com.apple.applicationaccess_allowlockscreennotificationsview",
+                                "settingInstanceTemplateReference": null,
+                                "choiceSettingValue": {
+                                    "settingValueTemplateReference": null,
+                                    "value": "com.apple.applicationaccess_allowlockscreennotificationsview_false",
+                                    "children": []
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

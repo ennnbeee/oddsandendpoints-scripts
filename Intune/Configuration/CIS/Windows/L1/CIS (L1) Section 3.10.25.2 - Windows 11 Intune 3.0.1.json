@@ -1,0 +1,37 @@
+﻿{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/configurationPolicies/$entity",
+    "createdDateTime": "2024-06-11T09:43:23.5432086Z",
+    "creationSource": null,
+    "description": "",
+    "lastModifiedDateTime": "2024-06-11T09:43:23.5432086Z",
+    "name": "CIS (L1) Section 3.10.25.2 - Windows 11 Intune 3.0.1",
+    "platforms": "windows10",
+    "priorityMetaData": null,
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "settingCount": 1,
+    "technologies": "mdm",
+    "id": "bb3b7bfd-0b6f-42ac-aa5f-7ba8e042bd2f",
+    "templateReference": {
+        "templateId": "",
+        "templateFamily": "none",
+        "templateDisplayName": null,
+        "templateDisplayVersion": null
+    },
+    "settings": [
+        {
+            "id": "0",
+            "settingInstance": {
+                "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+                "settingDefinitionId": "device_vendor_msft_policy_config_windowslogon_dontdisplaynetworkselectionui",
+                "settingInstanceTemplateReference": null,
+                "choiceSettingValue": {
+                    "settingValueTemplateReference": null,
+                    "value": "device_vendor_msft_policy_config_windowslogon_dontdisplaynetworkselectionui_0",
+                    "children": []
+                }
+            }
+        }
+    ]
+}

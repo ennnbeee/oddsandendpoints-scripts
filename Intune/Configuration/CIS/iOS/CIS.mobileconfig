@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadContent</key>
+        <array>
+            <dict>
+                <key>PayloadDescription</key>
+                <string>3.7.2 Ensure "Allow Mail Drop" is set to "Disabled"</string>
+                <key>PayloadDisplayName</key>
+                <string>CIS Level 1 3.7.2</string>
+                <key>PayloadType</key>
+                <string>com.apple.mail.managed</string>
+                <key>PayloadUUID</key>
+                <string>be5a2480-205c-4f01-a8bf-8881e0c758d6</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>allowMailDrop</key>
+                <false/>
+            </dict>
+        </array>
+        <key>PayloadDescription</key>
+        <string>All CIS Level 1 settings not available in Microsoft Intune natively.</string>
+        <key>PayloadDisplayName</key>
+        <string>CIS Level 1</string>
+        <key>PayloadIdentifier</key>
+        <string>com.intune.memvennbee</string>
+        <key>PayloadOrganization</key>
+        <string>MEM v ENNBEE</string>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadUUID</key>
+        <string>a7258dda-6d18-4cb3-8d1f-bbe18ef6d2ab</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+    </dict>
+</plist>

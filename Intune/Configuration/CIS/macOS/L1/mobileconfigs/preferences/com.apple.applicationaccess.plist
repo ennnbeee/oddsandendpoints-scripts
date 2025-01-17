@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>allowAirDrop</key>
+	<false/>
+	<key>allowAirPlayIncomingRequests</key>
+	<false/>
+	<key>allowApplePersonalizedAdvertising</key>
+	<false/>
+	<key>allowDiagnosticSubmission</key>
+	<false/>
+	<key>enforcedSoftwareUpdateDelay</key>
+	<integer>30</integer>
+	<key>forceOnDeviceOnlyDictation</key>
+	<true/>
+</dict>
+</plist>

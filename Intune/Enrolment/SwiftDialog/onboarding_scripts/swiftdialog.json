@@ -1,0 +1,55 @@
+{
+  "title": "Welcome to MEM v ENNBEE",
+  "message": "Please wait while we configure your MEM v ENNBEE macOS device.",
+  "blurscreen": true,
+  "moveable": false,
+  "ontop": true,
+  "button1text": "Exit",
+  "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/memvennbee.png",
+  "centreicon": false,
+  "iconsize": "400",
+  "listitem": [
+    {
+      "title": "Company Portal",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/CompanyPortal.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Defender",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/Defender.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Google Chrome",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/GoogleChrome.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Edge",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/Edge.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft VS Code",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/vscode.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Remote Desktop",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/icons/WindowsApp.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Set Time Zone",
+      "icon": "/Library/Application Support/Microsoft/IntuneScripts/SwiftDialog/Settings.png",
+      "status": "pending",
+      "statustext": "Pending"
+    }
+  ]
+}

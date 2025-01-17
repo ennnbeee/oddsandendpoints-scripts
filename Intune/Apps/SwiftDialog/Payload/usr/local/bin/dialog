@@ -1,0 +1,52 @@
+#!/bin/sh
+currentUser=$(echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }')
+uid=$(id -u "$currentUser")
+dialogpath="/Library/Application Support/Dialog/Dialog.app"
+dialogbin="$dialogpath/Contents/MacOS/Dialog"
+commandfile=$(echo "$@" | awk -v pattern="--commandfile" '{for (i=0;i<=NF;i++) {if ($i==pattern) print $(i+1) }}')
+
+echoerr() { echo "$@" 1>&2; }
+
+if [[ -z $commandfile ]]; then
+    commandfile="/var/tmp/dialog.log"
+fi
+
+# convenience function to run a command as the current user
+# usage:
+#   runAsUser command arguments...
+# from https://scriptingosx.com/2020/08/running-a-command-as-another-user/
+runAsUser() {
+    if [ "$currentUser" != "loginwindow" ]; then
+        launchctl asuser "$uid" sudo -u "$currentUser" "$@"
+    else
+        echoerr "no user logged in"
+    fi
+}
+
+# Check to make sure we have a binary to run
+if [ ! -e "$dialogbin" ]; then
+    echoerr "ERROR: Cannot find swiftDialog binary at $dialogbin"
+    exit 255
+fi
+
+# check to see if the command file exists
+if [[ ! -e "$commandfile" ]]; then
+    /usr/bin/touch "$commandfile"
+# check to see if the command file is writeable
+elif [[ ! -r "$commandfile" ]]; then
+    echoerr ""
+    echoerr "Warning: command file ${commandfile} is not empty and not writeable by user $currentUser"
+    echoerr ""
+fi
+
+# If we're running as root, launch swiftDialog as the user.
+if [ $(id -u) -eq 0 ]; then
+    if [ -e $commandfile ]; then
+        # make sure the console user has read access to the command file
+        /bin/chmod 666 "$commandfile"
+    fi
+
+    runAsUser "$dialogbin" "$@"
+else
+    "$dialogbin" "$@"
+fi

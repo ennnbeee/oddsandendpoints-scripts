@@ -1,0 +1,33 @@
+{
+  "title": "Welcome to MEM v ENNBEE",
+  "message": "Please wait while we configure your macOS device.",
+  "button1text": "Exit",
+  "icon": "/Library/Application Support/SwiftDialogResources/icons/MEMvENNBEE.png",
+  "iconsize": "400",
+  "listitem": [
+    {
+      "title": "Company Portal",
+      "icon": "/Library/Application Support/SwiftDialogResources/icons/CompanyPortal.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Edge",
+      "icon": "/Library/Application Support/SwiftDialogResources/icons/Edge.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Remote Desktop",
+      "icon": "/Library/Application Support/SwiftDialogResources/icons/RemoteDesktop.png",
+      "status": "pending",
+      "statustext": "Pending"
+    },
+    {
+      "title": "Microsoft Defender",
+      "icon": "/Library/Application Support/SwiftDialogResources/icons/Defender.png",
+      "status": "pending",
+      "statustext": "Pending"
+    }
+  ]
+}
