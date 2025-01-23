@@ -4,7 +4,7 @@
 .DESCRIPTION
 
 .PARAMETER tenantId
-Provide the Id of the tenant to connecto to.
+Provide the Id of the tenant to connect to.
 
 .PARAMETER appId
 Provide the Id of the Entra App registration to be used for authentication.
@@ -24,10 +24,10 @@ Import - Allows the import of new rules based on the report.
 ImportAssign - Allows the import of new rules based on the report and assignment based on provided group.
 
 .INPUTS
-None. You can't pipe objects to Invoke-MgEPNRulesUpdate.
+None. You can't pipe objects to Invoke-MgEPNRulesUpdate.ps1
 
 .OUTPUTS
-None. Invoke-MgEPNRulesUpdate doesn't generate any output.
+None. Invoke-MgEPNRulesUpdate.ps1 doesn't generate any output.
 
 .EXAMPLE
 PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -deployment Report
@@ -56,7 +56,7 @@ param(
     [ValidateSet('Report', 'Import', 'ImportAssign')]
     [string]$deployment,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [ValidateSet('All', 'Unmanaged', 'Automatic', 'UserConfirmed', 'SupportApproved')]
     [String]$elevationType,
 
@@ -173,7 +173,7 @@ Function Get-DeviceEPMReport() {
 
     param (
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateSet('All', 'Unmanaged', 'Automatic', 'UserConfirmed', 'SupportApproved')]
         [String]$type
 
@@ -231,9 +231,10 @@ Function Get-IntuneGroup() {
 
     try {
 
-        $searchterm = 'search="displayName:' + $Name + '"'
-        $uri = "https://graph.microsoft.com/$graphApiVersion/$Resource`?$searchterm"
+        $searchTerm = 'search="displayName:' + $Name + '"'
+        $uri = "https://graph.microsoft.com/$graphApiVersion/$Resource`?$searchTerm"
         (Invoke-MgGraphRequest -Headers @{ConsistencyLevel = 'eventual' } -Uri $uri -Method Get).Value
+
     }
     catch {
         Write-Error $Error[0].ErrorDetails.Message
@@ -363,16 +364,28 @@ Function Add-DeviceSettingsCatalogAssignment() {
 }
 #endregion Functions
 
-#region testing
+<#region testing
 $tenantId = '437e8ffb-3030-469a-99da-e5b527908010'
 $deployment = 'Report'
-$elevationType = 'Unmanaged'
-$reportPath = 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\EPMAutomation'
-$importFile = 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\EPMAutomation\EPM_Report_UpdatedSample.csv'
-#endregion testing
+$elevationType = ''
+$elevationGrouping = 'Hash'
+$reportPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\EPMAutomation'
+$importFile = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\EPMAutomation\EPM_Report_UpdatedSample.csv'
+#endregion testing#>
 
 #region app auth
-Import-Module Microsoft.Graph.Authentication
+$graphModule = 'Microsoft.Graph.Authentication'
+Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
+
+If (!(Find-Module -Name $graphModule)) {
+    Install-Module -Name $graphModule -Scope CurrentUser
+}
+Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
+
+if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$graphModule*")) {
+    Import-Module -Name $graphModule -Force
+}
+
 if (Get-MgContext) {
     Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
     Disconnect-MgGraph
@@ -417,7 +430,13 @@ if ($deployment -eq 'Report') {
         Default { $grouping = 'hash' }
     }
     $epmReport = @()
-    $elevations = Get-DeviceEPMReport -type $elevationType | Group-Object -Property $grouping
+    if (!$elevationType) {
+        $elevations = Get-DeviceEPMReport | Group-Object -Property $grouping
+    }
+    else {
+        $elevations = Get-DeviceEPMReport -type $elevationType | Group-Object -Property $grouping
+    }
+
     foreach ($elevation in $elevations) {
 
         $elevationGroups = $elevation.Group
