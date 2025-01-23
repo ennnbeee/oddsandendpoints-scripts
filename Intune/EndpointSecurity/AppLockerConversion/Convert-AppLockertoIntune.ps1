@@ -59,9 +59,16 @@ param(
 
 )
 
+$tenantId = '437e8ffb-3030-469a-99da-e5b527908010'
+$xmlPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\AppLockerConversion\broken.xml'
+$xmlPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml'
+$displayName = 'Demo'
+$grouping = 'Demo'
+$enforcement = 'Audit'
+
 #region variables
 [String[]]$scopes = 'DeviceManagementConfiguration.ReadWrite.All'
-$grouping = $grouping.Trim() -replace '\s',''
+$grouping = $grouping.Trim() -replace '\s', ''
 #endregion variables
 
 #region functions
@@ -120,7 +127,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
     )
 
     Process {
-        Import-Module Microsoft.Graph.Authentication
+        #Import-Module Microsoft.Graph.Authentication
         $version = (Get-Module microsoft.graph.authentication | Select-Object -ExpandProperty Version).major
 
         if ($AppId -ne '') {
@@ -185,11 +192,23 @@ Function New-CustomProfile() {
 #endregion functions
 
 #region authentication
-Import-Module Microsoft.Graph.Authentication
+$graphModule = 'Microsoft.Graph.Authentication'
+Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
+
+If (!(Find-Module -Name $graphModule)) {
+    Install-Module -Name $graphModule -Scope CurrentUser
+}
+Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
+
+if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$graphModule*")) {
+    Import-Module -Name $graphModule -Force
+}
+
 if (Get-MgContext) {
     Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
     Disconnect-MgGraph
 }
+
 Write-Host 'Connecting to Graph' -ForegroundColor Cyan
 Connect-ToGraph -tenantId $tenantId -Scopes $scopes
 $existingScopes = (Get-MgContext).Scopes
@@ -208,7 +227,15 @@ Try {
     $omaSettings = @()
     $xmlFile = Get-ChildItem $xmlPath
     [xml]$xmlDoc = Get-Content $xmlFile
-    $ruleCollections = $xmlDoc.ChildNodes.RuleCollection
+
+    if ([string]::IsNullOrWhiteSpace($xmlDoc.ChildNodes.RuleCollection)) {
+        Write-Error "Provided XML file $xmlPath is not a valid AppLocker export."
+        Break
+    }
+    else {
+        Write-Host "Found AppLocker Rules in XML file $xmlPath" -ForegroundColor Green
+        $ruleCollections = $xmlDoc.ChildNodes.RuleCollection
+    }
 
     foreach ($ruleCollection in $ruleCollections) {
         $objectAppLockerSettings = New-Object -TypeName psobject
@@ -259,7 +286,7 @@ Try {
         Write-Host "Created AppLocker Custom Profile $name in Intune" -ForegroundColor Green
     }
     else {
-        Write-Host "Provided AppLocker export does not contain Rule Collections" -ForegroundColor Red
+        Write-Host 'Provided AppLocker export does not contain Rule Collections' -ForegroundColor Red
         Break
     }
 }

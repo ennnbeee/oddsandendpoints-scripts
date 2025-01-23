@@ -107,7 +107,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
     )
 
     Process {
-        Import-Module Microsoft.Graph.Authentication
+        #Import-Module Microsoft.Graph.Authentication
         $version = (Get-Module microsoft.graph.authentication | Select-Object -ExpandProperty Version).major
 
         if ($AppId -ne '') {
