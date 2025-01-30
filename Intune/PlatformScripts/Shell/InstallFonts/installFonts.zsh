@@ -11,7 +11,7 @@
 
 # User Defined variables
 
-fontPackageUrl="https://github.com/ennnbeee/mve-scripts/raw/refs/heads/main/Intune/PlatformScripts/Shell/InstallFonts/fonts.zip" # Enter your own URL here
+fontPackageUrl="https://github.com/ennnbeee/oddsandendpoints-scripts/raw/refs/heads/main/Intune/PlatformScripts/Shell/InstallFonts/fonts.zip" # Enter your own URL here
 appName="fonts"
 fontDir="/Library/Fonts/" # All users fonts folder
 

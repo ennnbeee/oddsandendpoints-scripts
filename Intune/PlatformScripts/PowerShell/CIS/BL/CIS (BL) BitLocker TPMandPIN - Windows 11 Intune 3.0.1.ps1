@@ -8,6 +8,13 @@ Try {
         }
     }
 
+    # Detects and removes existing Tpm key protectors to ensure the PIN is required
+    if ($osVolume.KeyProtector.KeyProtectorType -contains 'Tpm') {
+        $osVolume.KeyProtector | Where-Object { $_.KeyProtectorType -eq 'Tpm' } | ForEach-Object {
+            Remove-BitLockerKeyProtector -MountPoint $osVolume.MountPoint -KeyProtectorId $_.KeyProtectorId
+        }
+    }
+
     # Sets a recovery password key protector if one doesn't exist, needed for TpmPin key protector
     if ($osVolume.KeyProtector.KeyProtectorType -notcontains 'RecoveryPassword') {
         Enable-BitLocker -MountPoint $osVolume.MountPoint -RecoveryPasswordProtector

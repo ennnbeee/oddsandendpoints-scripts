@@ -629,8 +629,8 @@ Write-Host
 Write-Host "Starting the Feature Update Readiness Report for Windows 11 $featureUpdateBuild with scope tag $scopeTag..." -ForegroundColor Magenta
 Write-Host
 
-$reatureUpdateReport = New-ReportFeatureUpdateReadiness -JSON $featureUpdateCreate -csv
-While ((Get-ReportFeatureUpdateReadiness -Id $reatureUpdateReport.id -csv).status -ne 'completed') {
+$featureUpdateReport = New-ReportFeatureUpdateReadiness -JSON $featureUpdateCreate -csv
+While ((Get-ReportFeatureUpdateReadiness -Id $featureUpdateReport.id -csv).status -ne 'completed') {
     Write-Host 'Waiting for the Feature Update report to finish processing...' -ForegroundColor Cyan
     Start-Sleep -Seconds $rndWait
 }
@@ -639,7 +639,7 @@ Write-Host "Windows 11 $featureUpdateBuild feature update readiness completed pr
 Write-Host
 Write-Host "Getting Windows 11 $featureUpdateBuild feature update readiness Report data..." -ForegroundColor Magenta
 Write-Host
-$csvURL = (Get-ReportFeatureUpdateReadiness -Id $reatureUpdateReport.id -csv).url
+$csvURL = (Get-ReportFeatureUpdateReadiness -Id $featureUpdateReport.id -csv).url
 
 $csvHeader = @{Accept = '*/*'; 'accept-encoding' = 'gzip, deflate, br, zstd' }
 Add-Type -AssemblyName System.IO.Compression
