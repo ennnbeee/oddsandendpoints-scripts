@@ -72,14 +72,14 @@ param(
 
 )
 
-#region testing
+<#region testing
 $tenantId = '69b2ff03-08b5-4781-b7ea-af7ffbf790c4'
-$tenantName = 'phxconsamvokes.onmicrosoft.com'
+$tenantName = ''
 $instance = 'Worldwide'
 $serviceAreas = @('MEM')
 $groupBy = 'service'
 $scopes = 'DeviceManagementConfiguration.Read.All,DeviceManagementManagedDevices.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All'
-#endregion testing
+#endregion testing#>
 
 #region Functions
 Function Connect-ToGraph {
