@@ -1,13 +1,29 @@
+<#PSScriptInfo
+
+.VERSION 0.1
+.GUID 9c1fcbcd-fe13-4810-bf91-f204ec903193
+.AUTHOR Nick Benton
+.COMPANYNAME
+.COPYRIGHT GPL
+.TAGS Graph Intune Windows
+.LICENSEURI
+.PROJECTURI
+.ICONURI
+.EXTERNALMODULEDEPENDENCIES Microsoft.Graph.Authentication
+.REQUIREDSCRIPTS
+.EXTERNALSCRIPTDEPENDENCIES
+.RELEASENOTES
+v0.1 - Initial release
+
+.PRIVATEDATA
+#>
+
 <#
 .SYNOPSIS
-Allows for a phased and controlled distribution of Windows 11 Feature Updates
-following the run and capture of Update Readiness data, tagging devices
-in Entra ID with their update readiness risk score for use with Dynamic
-Security Groups.
+Allows for a phased and controlled distribution of Windows 11 Feature Updates following the run and capture of Update Readiness data, tagging devices in Entra ID with their update readiness risk score for use with Dynamic Security Groups.
 
 .DESCRIPTION
-The Invoke-Windows11Accelerator script allows for the controlled roll out of
-Windows 11 Feature Updates based on device readiness risk assessments data.
+The Invoke-Windows11Accelerator script allows for the controlled roll out of Windows 11 Feature Updates based on device readiness risk assessments data.
 
 .PARAMETER tenantId
 Provide the Id of the tenant to connect to.
@@ -23,8 +39,7 @@ Select the Windows 11 Feature Update version you wish to deploy
 Choice of 22H2 or 23H2.
 
 .PARAMETER extensionAttribute
-Configure the device extensionAttribute to be used for tagging Entra ID objects
-with their Feature Update Readiness Assessment risk score.
+Configure the device extensionAttribute to be used for tagging Entra ID objects with their Feature Update Readiness Assessment risk score.
 Choice of 1 to 15
 
 .PARAMETER target
@@ -37,61 +52,56 @@ Select whether you want to run the script in demo mode, with this switch it will
 .PARAMETER firstRun
 Run the script without with warning prompts, used for continued running of the script.
 
-.PARAMETER scopes
-The scopes used to connect to the Graph API using PowerShell.
-Default scopes configured are:
-'Group.ReadWrite.All,Device.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All'
-
-.INPUTS
-None. You can't pipe objects to Invoke-Windows11AcceleratorUpdate.ps1.
-
-.OUTPUTS
-None. Invoke-Windows11AcceleratorUpdate.ps1 doesn't generate any output.
-
 .EXAMPLE
 PS> .\Invoke-Windows11AcceleratorUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -appId 297b3303-da1a-4e58-bdd2-b8d681d1bd71 -appSecret g5m8Q~CSedPeRoee4Ld9Uvg2FhR_0Hy7kUpRIbo -featureUpdateBuild 23H2 -target device -extensionAttribute 15 -demo
 
 .EXAMPLE
 PS> .\Invoke-Windows11AcceleratorUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -appId 297b3303-da1a-4e58-bdd2-b8d681d1bd71 -appSecret g5m8Q~CSedPeRoee4Ld9Uvg2FhR_0Hy7kUpRIbo -featureUpdateBuild 23H2 -target user -extensionAttribute 10 -firstRun $true
 
+.NOTES
+Version:        0.5
+Author:         Nick Benton
+WWW:            oddsandendpoints.co.uk
+Creation Date:  03/03/2025
 #>
 
-[CmdletBinding()]
+[CmdletBinding(DefaultParameterSetName = 'Default')]
 
 param(
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, HelpMessage = 'Provide the Id of the Entra ID tenant to connect to')]
+    [ValidateLength(36, 36)]
     [String]$tenantId,
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false, ParameterSetName = 'appAuth', HelpMessage = 'Provide the Id of the Entra App registration to be used for authentication')]
+    [ValidateLength(36, 36)]
     [String]$appId,
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $true, ParameterSetName = 'appAuth', HelpMessage = 'Provide the App secret to allow for authentication to graph')]
+    [ValidateNotNullOrEmpty()]
     [String]$appSecret,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, HelpMessage = 'Select the Windows 11 Feature Update version you wish to deploy')]
     [ValidateSet('22H2', '23H2', '24H2')]
-    [String]$featureUpdateBuild = '23H2',
+    [String]$featureUpdateBuild = '24H2',
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, HelpMessage = 'Select the whether you want to target the deployment to groups of users or groups of devices.')]
     [ValidateSet('user', 'device')]
     [String]$target = 'device',
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, HelpMessage = 'Configure the device extensionAttribute to be used for tagging Entra ID objects with their Feature Update Readiness Assessment risk score.')]
     [ValidateRange(1, 15)]
     [int]$extensionAttribute,
 
     [Parameter(Mandatory = $false)]
     [String]$scopeTag = 'default',
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false, HelpMessage = 'Run the script with or without with warning prompts, used for continued running of the script.')]
     [boolean]$firstRun = $true,
 
-    [Parameter(Mandatory = $false)]
-    [Switch]$demo,
+    [Parameter(Mandatory = $false, HelpMessage = 'Run the script in demo mode, with this switch it will not tag devices or users with their risk state.')]
+    [Switch]$demo
 
-    [Parameter(Mandatory = $false)]
-    [String[]]$scopes = 'Group.ReadWrite.All,Device.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All,User.ReadWrite.All,DeviceManagementRBAC.Read.All'
 )
 
 #region Functions
@@ -168,7 +178,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
         }
     }
 }
-Function Test-JSON() {
+Function Test-JSONData() {
 
     param (
         $JSON
@@ -213,7 +223,7 @@ Function New-ReportFeatureUpdateReadiness() {
     }
 
     try {
-        Test-Json -Json $JSON
+        Test-JSONData -Json $JSON
         $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
         Invoke-MgGraphRequest -Uri $uri -Method Post -Body $JSON -ContentType 'application/json'
     }
@@ -297,7 +307,7 @@ Function Add-ObjectAttribute() {
     }
 
     try {
-        Test-Json -Json $JSON
+        Test-JSONData -Json $JSON
         $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
         Invoke-MgGraphRequest -Uri $uri -Method Patch -Body $JSON -ContentType 'application/json'
     }
@@ -351,7 +361,7 @@ Function Get-EntraIDObject() {
         break
     }
 }
-Function Get-ManagedDevices() {
+Function Get-ManagedDevice() {
 
     [cmdletbinding()]
     param
@@ -387,7 +397,7 @@ Function Get-ManagedDevices() {
         break
     }
 }
-Function Get-ScopeTags() {
+Function Get-ScopeTag() {
 
     [cmdletbinding()]
     param
@@ -420,43 +430,12 @@ $featureUpdateBuild = '23H2'
 $extensionAttribute = 10
 $demo = $true
 $firstRun = $true
-$target = 'user'
+$target = 'device'
 #>
 #endregion testing
 
-#region app auth
-$graphModule = 'Microsoft.Graph.Authentication'
-Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
-
-If (!(Find-Module -Name $graphModule)) {
-    Install-Module -Name $graphModule -Scope CurrentUser
-}
-Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
-
-if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$graphModule*")) {
-    Import-Module -Name $graphModule -Force
-}
-
-if (Get-MgContext) {
-    Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
-    Disconnect-MgGraph
-}
-if ((!$appId -and !$appSecret) -or ($appId -and !$appSecret) -or (!$appId -and $appSecret)) {
-    Write-Host 'Missing App Details, connecting using user authentication' -ForegroundColor Yellow
-    Connect-ToGraph -tenantId $tenantId -Scopes $scopes
-    $existingScopes = (Get-MgContext).Scopes
-    Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
-    Disconnect-MgGraph
-    Write-Host 'Connecting to Graph' -ForegroundColor Cyan
-    Connect-ToGraph -tenantId $tenantId -Scopes $existingScopes
-}
-else {
-    Write-Host 'Connecting using App authentication' -ForegroundColor Yellow
-    Connect-ToGraph -tenantId $tenantId -appId $appId -appSecret $appSecret
-}
-#endregion app auth
-
-#region Variables
+#region variables
+$scopes = 'Group.ReadWrite.All,Device.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All,User.ReadWrite.All,DeviceManagementRBAC.Read.All'
 $ProgressPreference = 'SilentlyContinue';
 $rndWait = Get-Random -Minimum 2 -Maximum 5
 $extensionAttributeValue = 'extensionAttribute' + $extensionAttribute
@@ -465,10 +444,53 @@ $featureUpdate = Switch ($featureUpdateBuild) {
     '23H2' { 'NI23H2' } # Windows 11 23H2 (Nickel)
     '24H2' { 'GE24H2' } # Windows 11 24H2 (Germanium)
 }
+#endregion variables
+
+#region module check
+$modules = @('Microsoft.Graph.Authentication')
+foreach ($module in $modules) {
+    Write-Host "Checking for $module PowerShell module..." -ForegroundColor Cyan
+    Write-Host ''
+    If (!(Get-Module -Name $module -ListAvailable)) {
+        Install-Module -Name $module -Scope CurrentUser -AllowClobber
+    }
+    Write-Host "PowerShell Module $module found." -ForegroundColor Green
+    Write-Host ''
+    if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$module*")) {
+        Import-Module -Name $module -Force
+    }
+}
+#endregion module check
+
+#region app auth
+try {
+    if (!$tenantId) {
+        Write-Host 'Connecting using interactive authentication' -ForegroundColor Yellow
+        Connect-MgGraph -Scopes $scopes -NoWelcome -ErrorAction Stop
+    }
+    else {
+        if ((!$appId -and !$appSecret) -or ($appId -and !$appSecret) -or (!$appId -and $appSecret)) {
+            Write-Host 'Missing App Details, connecting using user authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -Scopes $scopes -ErrorAction Stop
+        }
+        else {
+            Write-Host 'Connecting using App authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -appId $appId -appSecret $appSecret -ErrorAction Stop
+        }
+    }
+    $context = Get-MgContext
+    Write-Host ''
+    Write-Host "Successfully connected to Microsoft Graph tenant $($context.TenantId)." -ForegroundColor Green
+}
+catch {
+    Write-Error $_.Exception.Message
+    Exit
+}
+#endregion app auth
 
 #region scope tags
 if ($scopeTag -ne 'default') {
-    Get-ScopeTags | ForEach-Object {
+    Get-ScopeTag | ForEach-Object {
         if ($_.displayName -eq $scopeTag) {
             $scopeTagId = '{0:d5}' -f [int]$_.id
             $scopeTagId | Out-Null
@@ -482,8 +504,6 @@ if ($scopeTag -ne 'default') {
 else {
     $scopeTagId = '00000'
 }
-#endregion scope tags
-
 $featureUpdateCreate = @"
 {
     "reportName": "MEMUpgradeReadinessDevice",
@@ -506,7 +526,7 @@ $featureUpdateCreate = @"
     "snapshotId": "MEMUpgradeReadinessDevice_00000000-0000-0000-0000-000000000001"
 }
 "@
-#endregion Variables
+#endregion scope tags
 
 #region Intro
 Write-Host
@@ -554,7 +574,7 @@ if ($target -eq 'user') {
     $entraUsers = Get-EntraIDObject -object User
     Write-Host "Found $($entraUsers.Count) user objects and associated IDs from Entra ID." -ForegroundColor Green
     if ($entraUsers.Count -eq 0) {
-        Write-Host "Found no Users in Entra." -ForegroundColor Red
+        Write-Host 'Found no Users in Entra.' -ForegroundColor Red
         Break
     }
     #optimising the entra user data
@@ -564,11 +584,11 @@ if ($target -eq 'user') {
     }
     Write-Host
     Write-Host 'Getting Windows device objects and associated IDs from Microsoft Intune...' -ForegroundColor Cyan
-    $intuneDevices = Get-ManagedDevices
+    $intuneDevices = Get-ManagedDevice
     Write-Host "Found $($intuneDevices.Count) Windows device objects and associated IDs from Microsoft Intune." -ForegroundColor Green
     Write-Host
     if ($intuneDevices.Count -eq 0) {
-        Write-Host "Found no Windows devices in Intune." -ForegroundColor Red
+        Write-Host 'Found no Windows devices in Intune.' -ForegroundColor Red
         Break
     }
     #optimising the intune device data
@@ -582,7 +602,7 @@ Write-Host 'Getting Windows device objects and associated IDs from Entra ID...' 
 $entraDevices = Get-EntraIDObject -object Device
 Write-Host "Found $($entraDevices.Count) Windows devices and associated IDs from Entra ID." -ForegroundColor Green
 if ($entraDevices.Count -eq 0) {
-    Write-Host "Found no Windows devices in Entra." -ForegroundColor Red
+    Write-Host 'Found no Windows devices in Entra.' -ForegroundColor Red
     Break
 }
 #optimising the entra device data

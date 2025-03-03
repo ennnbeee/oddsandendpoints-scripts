@@ -1,3 +1,23 @@
+<#PSScriptInfo
+
+.VERSION 0.1
+.GUID dda70c3d-e3c9-44cb-9acf-6e452e36d9d5
+.AUTHOR Nick Benton
+.COMPANYNAME
+.COPYRIGHT GPL
+.TAGS Graph Intune Windows
+.LICENSEURI
+.PROJECTURI
+.ICONURI
+.EXTERNALMODULEDEPENDENCIES Microsoft.Graph.Authentication
+.REQUIREDSCRIPTS
+.EXTERNALSCRIPTDEPENDENCIES
+.RELEASENOTES
+v0.1 - Initial release
+
+
+.PRIVATEDATA
+#>
 <#
 .SYNOPSIS
 
@@ -12,22 +32,11 @@ Provide the Id of the Entra App registration to be used for authentication.
 .PARAMETER appSecret
 Provide the App secret to allow for authentication to graph
 
-.PARAMETER Scopes
-The scopes used to connect to the Graph API using PowerShell.
-Default scopes configured are:
-'Group.Read.All,DeviceManagementConfiguration.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All'
-
 .PARAMETER deployment
 Provide the type of deployment, select from:
 Report - Generates and downloads EPM report details.
 Import - Allows the import of new rules based on the report.
 ImportAssign - Allows the import of new rules based on the report and assignment based on provided group.
-
-.INPUTS
-None. You can't pipe objects to Invoke-MgEPNRulesUpdate.ps1
-
-.OUTPUTS
-None. Invoke-MgEPNRulesUpdate.ps1 doesn't generate any output.
 
 .EXAMPLE
 PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -deployment Report
@@ -35,22 +44,28 @@ PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7
 .EXAMPLE
 PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -deployment Import
 
+.NOTES
+Version:        0.1
+Author:         Nick Benton
+WWW:            oddsandendpoints.co.uk
+Creation Date:  03/03/2025
+
 #>
 
-[CmdletBinding()]
+[CmdletBinding(DefaultParameterSetName = 'Default')]
 param(
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, HelpMessage = 'Provide the Id of the Entra ID tenant to connect to')]
+    [ValidateLength(36, 36)]
     [String]$tenantId,
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false, ParameterSetName = 'appAuth', HelpMessage = 'Provide the Id of the Entra App registration to be used for authentication')]
+    [ValidateLength(36, 36)]
     [String]$appId,
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $true, ParameterSetName = 'appAuth', HelpMessage = 'Provide the App secret to allow for authentication to graph')]
+    [ValidateNotNullOrEmpty()]
     [String]$appSecret,
-
-    [Parameter(Mandatory = $false)]
-    [String[]]$scopes = 'Group.Read.All,DeviceManagementConfiguration.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All',
 
     [Parameter(Mandatory = $true)]
     [ValidateSet('Report', 'Import', 'ImportAssign')]
@@ -146,7 +161,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
         }
     }
 }
-Function Test-JSON() {
+Function Test-JSONData() {
 
     param (
         $JSON
@@ -299,7 +314,7 @@ Function New-DeviceSettingsCatalog() {
     $Resource = 'deviceManagement/configurationPolicies'
 
     try {
-        Test-Json -Json $JSON
+        Test-JSONData -Json $JSON
         $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
         Invoke-MgGraphRequest -Uri $uri -Method Post -Body $JSON -ContentType 'application/json'
     }
@@ -373,43 +388,53 @@ $reportPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity
 $importFile = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\EPMAutomation\EPM_Report_UpdatedSample.csv'
 #endregion testing#>
 
-#region app auth
-$graphModule = 'Microsoft.Graph.Authentication'
-Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
-
-If (!(Find-Module -Name $graphModule)) {
-    Install-Module -Name $graphModule -Scope CurrentUser
-}
-Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
-
-if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$graphModule*")) {
-    Import-Module -Name $graphModule -Force
-}
-
-if (Get-MgContext) {
-    Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
-    Disconnect-MgGraph
-}
-if ((!$appId -and !$appSecret) -or ($appId -and !$appSecret) -or (!$appId -and $appSecret)) {
-    Write-Host 'Missing App Details, connecting using user authentication' -ForegroundColor Yellow
-    Connect-ToGraph -tenantId $tenantId -Scopes $scopes
-    $existingScopes = (Get-MgContext).Scopes
-    Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
-    Disconnect-MgGraph
-    Write-Host 'Connecting to Graph' -ForegroundColor Cyan
-    Connect-ToGraph -tenantId $tenantId -Scopes $existingScopes
-}
-else {
-    Write-Host 'Connecting using App authentication' -ForegroundColor Yellow
-    Connect-ToGraph -tenantId $tenantId -appId $appId -appSecret $appSecret
-}
-#endregion app auth
-
 #region variables
+$scopes = 'Group.Read.All,DeviceManagementConfiguration.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All'
 $elevationTypes = @('Automatic', 'UserAuthentication', 'UserJustification', 'SupportApproved')
 $childProcessBehaviours = @('AllowAll', 'RequireRule', 'DenyAll', 'NotConfigured')
-
 #endregion variables
+
+#region module check
+$modules = @('Microsoft.Graph.Authentication')
+foreach ($module in $modules) {
+    Write-Host "Checking for $module PowerShell module..." -ForegroundColor Cyan
+    Write-Host ''
+    If (!(Get-Module -Name $module -ListAvailable)) {
+        Install-Module -Name $module -Scope CurrentUser -AllowClobber
+    }
+    Write-Host "PowerShell Module $module found." -ForegroundColor Green
+    Write-Host ''
+    if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$module*")) {
+        Import-Module -Name $module -Force
+    }
+}
+#endregion module check
+
+#region app auth
+try {
+    if (!$tenantId) {
+        Write-Host 'Connecting using interactive authentication' -ForegroundColor Yellow
+        Connect-MgGraph -Scopes $scopes -NoWelcome -ErrorAction Stop
+    }
+    else {
+        if ((!$appId -and !$appSecret) -or ($appId -and !$appSecret) -or (!$appId -and $appSecret)) {
+            Write-Host 'Missing App Details, connecting using user authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -Scopes $scopes -ErrorAction Stop
+        }
+        else {
+            Write-Host 'Connecting using App authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -appId $appId -appSecret $appSecret -ErrorAction Stop
+        }
+    }
+    $context = Get-MgContext
+    Write-Host ''
+    Write-Host "Successfully connected to Microsoft Graph tenant $($context.TenantId)." -ForegroundColor Green
+}
+catch {
+    Write-Error $_.Exception.Message
+    Exit
+}
+#endregion app auth
 
 #region Report
 if ($deployment -eq 'Report') {
