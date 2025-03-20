@@ -17,27 +17,33 @@ Import-Module '.\FirewallRulesMigration.psm1'
 # Increase the Function Count
 $MaximumFunctionCount = 32768
 
-#region authentication
+
 #Disconnect from Graph
 if (Get-MgContext) {
     Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
     Disconnect-MgGraph
 }
 
-$scopes = 'DeviceManagementManagedDevices.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All'
-Connect-MgGraph -Scopes $scopes -UseDeviceCode
-if (Get-MgContext) {
-    Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
-    Disconnect-MgGraph
-}
-Write-Host 'Connecting to Graph' -ForegroundColor Cyan
-Connect-MgGraph -Scopes $scopes -UseDeviceCode
+#region scopes
+$requiredScopes = @('DeviceManagementManagedDevices.ReadWrite.All', 'DeviceManagementConfiguration.ReadWrite.All')
+[String[]]$scopes = $requiredScopes -join ', '
+#endregion scopes
 
-$graphDetails = Get-MgContext
-if ($null -eq $graphDetails) {
-    Write-Host "Not connected to Graph, please review any errors and try to run the script again' cmdlet." -ForegroundColor Red
-    break
+#region Authentication
+Write-Host 'Connecting to Microsoft Graph...' -ForegroundColor Cyan
+Connect-MgGraph -Scopes $scopes
+$context = Get-MgContext
+$currentScopes = $context.Scopes
+$missingScopes = $requiredScopes | Where-Object { $_ -notin $currentScopes }
+if ($missingScopes.Count -gt 0) {
+    Write-Host 'WARNING: The following scope permissions are missing:' -ForegroundColor Red
+    $missingScopes | ForEach-Object { Write-Host "  - $_" -ForegroundColor Yellow }
+    Write-Host ''
+    Write-Host 'Please ensure these permissions are granted to the app registration for full functionality.' -ForegroundColor Yellow
+    exit
 }
+Write-Host ''
+Write-Host 'All required scope permissions are present.' -ForegroundColor Green
 
 #endregion authentication
 

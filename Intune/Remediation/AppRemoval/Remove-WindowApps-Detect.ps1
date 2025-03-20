@@ -27,5 +27,3 @@ Catch {
     Write-Error $_.Exception
     Exit 2000
 }
-
-

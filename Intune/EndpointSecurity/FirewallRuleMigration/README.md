@@ -9,6 +9,8 @@ Updated version of the [Microsoft tool](https://learn.microsoft.com/en-us/mem/in
 - Changed the Authentication approach to Graph to use `deviceCode`.
 - Disabled sending of telemetry on success and failure.
 - Fixed an issue when checking for profile name matching when there are no existing firewall rule policies.
+- Resolved issues with module `Microsoft.Graph` version 2.26.1 module on PowerShell 5.
+- Changed requirements to use `Microsoft.Graph.Authentication` only.
 
 ## Script Use
 
@@ -16,12 +18,12 @@ Updated version of the [Microsoft tool](https://learn.microsoft.com/en-us/mem/in
 - Open PowerShell as Administrator.
 - Navigate to the extracted folder, your PowerShell prompt should be in the **FirewallRuleMigration** folder.
 - Run `Set-ExecutionPolicy Bypass` accepting all prompts.
-- Run `./Export-FirewallRules.ps1` with the corresponding switches (`includeDisabledRules`, `includeLocalRules`) if required.
-- Authenticate (device authentication) to Graph using a Global Admin account, twice*.
+- Run `./Export-FirewallRules.ps1` with the corresponding switches (`-includeDisabledRules`, `-includeLocalRules`) if required.
+- Authenticate to Graph using a Global Admin account*.
 - Enter a profile name for the Firewall rules policy when prompted.
-- Wait for rules to be uploaded.
+- Wait for rules to be created.
 
-> *The script will disconnect all existing Graph sessions, and connect twice; once to allow for consent to be provided, the following to allow the script to run following the consent request.
+> *The script will disconnect all existing Graph sessions and check for the required scopes.
 
 ## Notes
 
