@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1
+.VERSION 0.2
 .GUID dda70c3d-e3c9-44cb-9acf-6e452e36d9d5
 .AUTHOR Nick Benton
 .COMPANYNAME
@@ -14,7 +14,7 @@
 .EXTERNALSCRIPTDEPENDENCIES
 .RELEASENOTES
 v0.1 - Initial release
-
+v0.2 - Updated logic
 
 .PRIVATEDATA
 #>
@@ -32,17 +32,26 @@ Provide the Id of the Entra App registration to be used for authentication.
 .PARAMETER appSecret
 Provide the App secret to allow for authentication to graph
 
-.PARAMETER deployment
-Provide the type of deployment, select from:
-Report - Generates and downloads EPM report details.
-Import - Allows the import of new rules based on the report.
-ImportAssign - Allows the import of new rules based on the report and assignment based on provided group.
+.PARAMETER report
+Generates and downloads EPM report details.
+
+.PARAMETER import
+Allows the import of new rules based on the report.
+
+.PARAMETER assign
+Only used with import, boolean response to assign profiles after creating them.
+
+.PARAMETER importPath
+Path to the amended exported EPM rules
 
 .EXAMPLE
-PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -deployment Report
+PS> .\Invoke-MgEPMRules.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7  -report
 
 .EXAMPLE
-PS> .\Invoke-MgEPNRulesUpdate.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -deployment Import
+PS> .\Invoke-MgEPMRules.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -import -importPath "EPM-Report-20250321-105116.csv"
+
+.EXAMPLE
+PS> .\Invoke-MgEPMRules.ps1 -tenantId 36019fe7-a342-4d98-9126-1b6f94904ac7 -import -importPath "EPM-Report-20250321-105116.csv" -assign $true
 
 .NOTES
 Version:        0.1
@@ -67,23 +76,25 @@ param(
     [ValidateNotNullOrEmpty()]
     [String]$appSecret,
 
-    [Parameter(Mandatory = $true)]
-    [ValidateSet('Report', 'Import', 'ImportAssign')]
-    [string]$deployment,
+    [Parameter(Mandatory = $false)]
+    [switch]$report,
+
+    [Parameter(Mandatory = $false, ParameterSetName = 'Import')]
+    [switch]$import,
+
+    [Parameter(Mandatory = $true, ParameterSetName = 'Import')]
+    [String]$importFile,
+
+    [Parameter(Mandatory = $false, ParameterSetName = 'Import')]
+    [bool]$assign = $false,
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('All', 'Unmanaged', 'Automatic', 'UserConfirmed', 'SupportApproved')]
-    [String]$elevationType,
+    [String]$elevationMode,
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('Hash')]
-    [string]$elevationGrouping = 'Hash',
-
-    [Parameter(Mandatory = $false)]
-    [String]$reportPath,
-
-    [Parameter(Mandatory = $false)]
-    [String]$importFile
+    [string]$elevationGrouping = 'Hash'
 
 )
 
@@ -208,7 +219,7 @@ Function Get-DeviceEPMReport() {
             Default { $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)" }
         }
 
-        $graphResults = Invoke-MgGraphRequest -Uri $uri -Method Get
+        $graphResults = Invoke-MgGraphRequest -Uri $uri -Method Get -OutputType PSObject
 
         $results = @()
         $results += $graphResults.value
@@ -216,7 +227,7 @@ Function Get-DeviceEPMReport() {
         $pages = $graphResults.'@odata.nextLink'
         while ($null -ne $pages) {
 
-            $additional = Invoke-MgGraphRequest -Uri $pages -Method Get
+            $additional = Invoke-MgGraphRequest -Uri $pages -Method Get -OutputType PSObject
 
             if ($pages) {
                 $pages = $additional.'@odata.nextLink'
@@ -280,19 +291,19 @@ Function Get-DeviceSettingsCatalog() {
         if ($EPM) {
             $Resource = "deviceManagement/configurationPolicies?`$filter=templateReference/TemplateFamily eq 'endpointSecurityEndpointPrivilegeManagement'"
             $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
-            (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
+            (Invoke-MgGraphRequest -Uri $uri -Method Get -OutputType PSObject).Value
         }
         if ($Id) {
             $uri = "https://graph.microsoft.com/$graphApiVersion/$Resource/$Id"
-            Invoke-MgGraphRequest -Uri $uri -Method Get
+            Invoke-MgGraphRequest -Uri $uri -Method Get -OutputType PSObject
         }
         elseif ($Name) {
             $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
-            (Invoke-MgGraphRequest -Uri $uri -Method Get).Value | Where-Object { ($_.Name).contains("$Name") }
+            (Invoke-MgGraphRequest -Uri $uri -Method Get -OutputType PSObject).Value | Where-Object { ($_.Name).contains("$Name") }
         }
         Else {
             $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
-            (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
+            (Invoke-MgGraphRequest -Uri $uri -Method Get -OutputType PSObject).Value
         }
     }
     catch {
@@ -377,19 +388,41 @@ Function Add-DeviceSettingsCatalogAssignment() {
         break
     }
 }
+Function Get-TenantDetail() {
+
+    [cmdletbinding()]
+
+    param
+    (
+
+    )
+
+    $graphApiVersion = 'Beta'
+    $Resource = 'organization'
+
+    try {
+
+        $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
+        (Invoke-MgGraphRequest -Uri $uri -Method GET -OutputType PSObject).value
+    }
+    catch {
+        Write-Error $Error[0].ErrorDetails.Message
+        break
+    }
+}
 #endregion Functions
 
 <#region testing
 $tenantId = '437e8ffb-3030-469a-99da-e5b527908010'
-$deployment = 'Report'
-$elevationType = ''
+$report = $true
+$elevationMode = ''
 $elevationGrouping = 'Hash'
-$reportPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\EPMAutomation'
 $importFile = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\EPMAutomation\EPM_Report_UpdatedSample.csv'
 #endregion testing#>
 
 #region variables
-$scopes = 'Group.Read.All,DeviceManagementConfiguration.ReadWrite.All,DeviceManagementManagedDevices.ReadWrite.All'
+$requiredScopes = @('Group.Read.All', 'DeviceManagementConfiguration.ReadWrite.All', 'DeviceManagementManagedDevices.Read.All')
+[String[]]$scopes = $requiredScopes -join ', '
 $elevationTypes = @('Automatic', 'UserAuthentication', 'UserJustification', 'SupportApproved')
 $childProcessBehaviours = @('AllowAll', 'RequireRule', 'DenyAll', 'NotConfigured')
 #endregion variables
@@ -404,9 +437,7 @@ foreach ($module in $modules) {
     }
     Write-Host "PowerShell Module $module found." -ForegroundColor Green
     Write-Host ''
-    if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$module*")) {
-        Import-Module -Name $module -Force
-    }
+    Import-Module -Name $module -Force
 }
 #endregion module check
 
@@ -427,8 +458,9 @@ try {
         }
     }
     $context = Get-MgContext
+    $tenantName = ((Get-TenantDetail).verifiedDomains | Where-Object { $_.isinitial -eq $true }).name
     Write-Host ''
-    Write-Host "Successfully connected to Microsoft Graph tenant $($context.TenantId)." -ForegroundColor Green
+    Write-Host "Successfully connected to Microsoft Graph tenant $tenantName with ID $($context.TenantId)." -ForegroundColor Green
 }
 catch {
     Write-Error $_.Exception.Message
@@ -436,30 +468,39 @@ catch {
 }
 #endregion app auth
 
-#region Report
-if ($deployment -eq 'Report') {
+#region scopes
+$currentScopes = $context.Scopes
+# Validate required permissions
+$missingScopes = $requiredScopes | Where-Object { $_ -notin $currentScopes }
+if ($missingScopes.Count -gt 0) {
+    Write-Host 'WARNING: The following scope permissions are missing:' -ForegroundColor Red
+    $missingScopes | ForEach-Object { Write-Host "  - $_" -ForegroundColor Yellow }
+    Write-Host ''
+    Write-Host 'Please ensure these permissions are granted to the app registration for full functionality.' -ForegroundColor Yellow
+    exit
+}
+Write-Host ''
+Write-Host 'All required scope permissions are present.' -ForegroundColor Green
+#endregion scopes
 
-    while (!$reportPath) {
-        $reportPath = Read-Host -Prompt "Please specify a path to export the EPM data to e.g., 'C:\Temp'"
-    }
-    if (!(Test-Path "$reportPath")) {
-        New-Item -ItemType Directory -Path "$reportPath" | Out-Null
-    }
-    $date = (Get-Date -Format 'yyyy_MM_dd_HH_mm_ss').ToString()
-    $csvFile = "$reportPath\EPM_Report_$date.csv"
+#region Report
+if ($report) {
+
+    $date = (Get-Date -Format 'yyyyMMdd-HHmmss').ToString()
+    $csvFile = ".\EPM-Report-$date.csv"
 
     switch ($elevationGrouping) {
-        Hash { $grouping = 'hash' }
-        User { $grouping = 'upn' }
-        Device { $grouping = 'deviceName' }
+        'Hash' { $grouping = 'hash' }
+        'User' { $grouping = 'upn' }
+        'Device' { $grouping = 'deviceName' }
         Default { $grouping = 'hash' }
     }
     $epmReport = @()
-    if (!$elevationType) {
+    if (!$elevationMode) {
         $elevations = Get-DeviceEPMReport | Group-Object -Property $grouping
     }
     else {
-        $elevations = Get-DeviceEPMReport -type $elevationType | Group-Object -Property $grouping
+        $elevations = Get-DeviceEPMReport -type $elevationMode | Group-Object -Property $grouping
     }
 
     foreach ($elevation in $elevations) {
@@ -474,6 +515,7 @@ if ($deployment -eq 'Report') {
             $fileCompany = $elevationGroup.companyName
             $fileProduct = $elevationGroup.productName
             $fileDescription = $elevationGroup.fileDescription
+            $fileHash = $elevationGroup.hash
             $filePath = ($elevationGroup.filePath | Split-Path) -replace '\\', '\\'
             $fileVersion = $elevationGroup.fileVersion
             $users += $elevationGroup.upn
@@ -489,7 +531,7 @@ if ($deployment -eq 'Report') {
             FileInternalName      = $fileInternalName
             FileVersion           = $fileVersion
             FilePath              = $filePath
-            FileHash              = $hash.Name
+            FileHash              = $fileHash
             Users                 = (($users | Get-Unique) -join ' ' | Out-String).Trim()
             Devices               = (($devices | Get-Unique) -join ' ' | Out-String).Trim()
             ElevationType         = $($elevationTypes -join '/')
@@ -507,18 +549,12 @@ if ($deployment -eq 'Report') {
 #endregion Report
 
 #region Import
-elseif ($deployment -like '*Import*') {
-
-    while (!$importFile) {
-        $importFile = Read-Host -Prompt 'Please specify a path to EPM data CSV to e.g., C:\Temp\EPM_Data.csv'
-    }
+if ($import) {
 
     while (!(Test-Path "$importFile")) {
         Write-Host "Unable to find $importFile script unable to continue"
         $importFile = Read-Host -Prompt "Unable to find $importFile please specify a valid path to EPM data CSV to e.g., C:\Temp\EPM_Data.csv"
-
     }
-
     $importedPolicies = Import-Csv -Path $importFile | Group-Object -Property Group
 
     #region Validation
@@ -536,13 +572,11 @@ elseif ($deployment -like '*Import*') {
                 $issuesChildProcessBehaviour++
             }
         }
-
-        if ($deployment -eq 'ImportAssign') {
-            $group = Get-IntuneGroup -Name $policy.Name
-            if ($null -eq $group) {
-                $issuesGroup++
-            }
+        $group = Get-IntuneGroup -Name $policy.Name
+        if ($null -eq $group) {
+            $issuesGroup++
         }
+
     }
     Write-Host 'Completed validation of the imported policies.' -ForegroundColor Green
 
@@ -1152,7 +1186,7 @@ elseif ($deployment -like '*Import*') {
         $EPMPolicy = New-DeviceSettingsCatalog -JSON $JSONOutput
         Write-Host "Successfully created $($EPMPolicy.name)" -ForegroundColor Green
 
-        if ($deployment -eq 'ImportAssign') {
+        if ($assign -eq $true) {
             Add-DeviceSettingsCatalogAssignment -Id $EPMPolicy.id -TargetGroupId $group.id -AssignmentType Include -Name $EPMPolicy.name
             Write-Host "Successfully assigned $($EPMPolicy.name) to $($group.displayname)" -ForegroundColor Green
         }
