@@ -9,8 +9,8 @@
 
 # Define variables
 # Add new background URLs to the array
-backGroundUrls=("https://raw.githubusercontent.com/ennnbeee/ennnbeee.github.io/main/bgr.png"
-  "https://raw.githubusercontent.com/ennnbeee/ennnbeee.github.io/main/img/feature-bg.png")
+backGroundUrls=("https://www.oddsandendpoints.co.uk/logo-bg-light.png"
+  "https://www.oddsandendpoints.co.uk/logo-bg-dark.png")
 
 scriptName="SetNewTeamsBackgrounds"
 logAndMetaDir="$HOME/Library/Logs/Microsoft/IntuneScripts/$scriptName" # Running under the user context
@@ -41,7 +41,7 @@ echo ""
 function checkAndSetInstalledMSTeamsPath() {
   if [[ -e "/Applications/Microsoft Teams.app" ]]; then
     teamsApp="/Applications/Microsoft Teams.app"
-    teamsUpload="$HOME/Library/Application Support/Microsoft/Teams/Backgrounds/Uploads"
+    teamsUpload="$HOME/Library/Containers/com.microsoft.teams2/Data/Library/Application Support/Microsoft/MSTeams/Backgrounds/Uploads"
   elif [[ -e "/Applications/Microsoft Teams classic.app" ]]; then
     teamsApp="/Applications/Microsoft Teams classic.app"
     teamsUpload="$HOME/Library/Application Support/Microsoft/Teams/Backgrounds/Uploads"
