@@ -5,7 +5,7 @@
 Takes an exported AppLocker policy from XML and creates an Intune custom profile with the corresponding settings.
 
 .PARAMETER tenantId
-Provide the Id of the tenant to connecto to.
+Provide the Id of the tenant to connect to.
 
 .PARAMETER xmlPath
 Path to the XML exported AppLocker policy.
@@ -21,18 +21,18 @@ Configures the AppLocker policy to be in audit or enforce.
 Valid set is 'Enforce', 'Audit'
 
 .INPUTS
-None. You can't pipe objects to Convert-AppLockertoIntune.ps1.
+None. You can't pipe objects to Convert-AppLockerToIntune.ps1.
 
 .OUTPUTS
-Convert-AppLockertoIntune.ps1 creates a mobileconfig and plist files in the same folder as the script.
+Convert-AppLockerToIntune.ps1 creates a mobileconfig and plist files in the same folder as the script.
 
 .EXAMPLE
 Create an Intune profile called WIN_COPE_AppLocker_Test for AppLocker settings set to Audit, with a grouping of 'Baseline'
-PS> .\Convert-AppLockertoIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904ac7' -xmlPath 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml' -displayName 'WIN_COPE_AppLocker_Test' -grouping 'Baseline' -enforcement Audit
+PS> .\Convert-AppLockerToIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904ac7' -xmlPath 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml' -displayName 'WIN_COPE_AppLocker_Test' -grouping 'Baseline' -enforcement Audit
 
 .EXAMPLE
 Create an Intune profile called WIN_COPE_AppLocker_Test for AppLocker settings set to Enforce, with a grouping of 'Development'
-PS> .\Convert-AppLockertoIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904ac7' -xmlPath 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml' -displayName 'WIN_COPE_AppLocker_Test' -grouping 'Development' -enforcement Enforce
+PS> .\Convert-AppLockerToIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904ac7' -xmlPath 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml' -displayName 'WIN_COPE_AppLocker_Test' -grouping 'Development' -enforcement Enforce
 
 #>
 
@@ -59,12 +59,14 @@ param(
 
 )
 
-$tenantId = '437e8ffb-3030-469a-99da-e5b527908010'
+<# testing
+$tenantId = ''
 $xmlPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\AppLockerConversion\broken.xml'
 $xmlPath = 'C:\Source\github\oddsandendpoints-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml'
 $displayName = 'Demo'
 $grouping = 'Demo'
 $enforcement = 'Audit'
+#>
 
 #region variables
 [String[]]$scopes = 'DeviceManagementConfiguration.ReadWrite.All'

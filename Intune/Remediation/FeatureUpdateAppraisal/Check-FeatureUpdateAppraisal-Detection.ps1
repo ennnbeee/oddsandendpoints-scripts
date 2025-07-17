@@ -1,4 +1,4 @@
-$schedule = 24 # update based on the remediation schedule
+$schedule = 36 # update based on the remediation schedule
 $featureUpdate = 'GE24H2' # Windows 11 24H2
 #$featureUpdate = 'NI23H2' # Windows 11 23H2
 
