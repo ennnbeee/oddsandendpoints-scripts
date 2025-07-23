@@ -74,7 +74,7 @@ $grouping = $grouping.Trim() -replace '\s', ''
 #endregion variables
 
 #region functions
-Function Test-JSON() {
+function Test-JSON() {
 
     param (
         $JSON
@@ -95,7 +95,7 @@ Function Test-JSON() {
     }
 
 }
-Function Connect-ToGraph {
+function Connect-ToGraph {
     <#
 .SYNOPSIS
 Authenticates to the Graph API via the Microsoft.Graph.Authentication module.
@@ -128,7 +128,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
         [Parameter(Mandatory = $false)] [string[]]$scopes
     )
 
-    Process {
+    process {
         #Import-Module Microsoft.Graph.Authentication
         $version = (Get-Module microsoft.graph.authentication | Select-Object -ExpandProperty Version).major
 
@@ -168,7 +168,7 @@ Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
         }
     }
 }
-Function New-CustomProfile() {
+function New-CustomProfile() {
 
     [cmdletbinding()]
 
@@ -197,7 +197,7 @@ Function New-CustomProfile() {
 $graphModule = 'Microsoft.Graph.Authentication'
 Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
 
-If (!(Find-Module -Name $graphModule)) {
+if (!(Find-Module -Name $graphModule)) {
     Install-Module -Name $graphModule -Scope CurrentUser
 }
 Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
@@ -220,7 +220,7 @@ Write-Host 'Connecting to Graph' -ForegroundColor Cyan
 Connect-ToGraph -tenantId $tenantId -Scopes $existingScopes
 #endregion authentication
 
-Try {
+try {
     while (!(Test-Path -Path $xmlPath -PathType Leaf)) {
         $xmlPath = Read-Host 'Please enter the path to the AppLocker XML file'
     }
@@ -232,7 +232,7 @@ Try {
 
     if ([string]::IsNullOrWhiteSpace($xmlDoc.ChildNodes.RuleCollection)) {
         Write-Error "Provided XML file $xmlPath is not a valid AppLocker export."
-        Break
+        break
     }
     else {
         Write-Host "Found AppLocker Rules in XML file $xmlPath" -ForegroundColor Green
@@ -289,10 +289,10 @@ Try {
     }
     else {
         Write-Host 'Provided AppLocker export does not contain Rule Collections' -ForegroundColor Red
-        Break
+        break
     }
 }
-Catch {
+catch {
     Write-Error $Error[0].ErrorDetails.Message
-    Exit 1
+    exit 1
 }
