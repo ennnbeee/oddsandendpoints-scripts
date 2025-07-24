@@ -4,7 +4,6 @@ $featureUpdate = 'GE24H2' # Windows 11 24H2
 
 try {
     $registry = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TargetVersionUpgradeExperienceIndicators\$featureUpdate"
-    # Checks if the key exists and the last run of the App Compat
     try {
         $safeGuardId = Get-ItemPropertyValue -Path $registry -Name GatedBlockId -ErrorAction SilentlyContinue
         $safeGuardReason = Get-ItemPropertyValue -Path $registry -Name GatedBlockReason -ErrorAction SilentlyContinue
