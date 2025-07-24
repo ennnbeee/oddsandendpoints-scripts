@@ -14,13 +14,14 @@ try {
         exit 0
     }
 
-    if ($safeGuardId -ne 'None') {
-        Write-Output "SafeGuard ID $safeGuardId with $safeGuardReason for Windows 11 $featureUpdate"
+    if ($safeGuardId -eq 'None' -or $null -eq $safeGuardReason) {
+        Write-Output "No SafeGuard hold found for Windows 11 $featureUpdate"
+        exit 0
     }
     else {
-        Write-Output "No SafeGuard ID found for Windows 11 $featureUpdate"
+        Write-Output "SafeGuard ID $safeGuardId with $safeGuardReason for Windows 11 $featureUpdate"
+        exit 1
     }
-    exit 0
 }
 catch {
     Write-Error $_.Exception
