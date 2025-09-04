@@ -34,6 +34,11 @@ PS> .\Convert-AppLockerToIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904
 Create an Intune profile called WIN_COPE_AppLocker_Test for AppLocker settings set to Enforce, with a grouping of 'Development'
 PS> .\Convert-AppLockerToIntune.ps1 -tenantId '36019fe7-a342-4d98-9126-1b6f94904ac7' -xmlPath 'C:\Source\github\mve-scripts\Intune\EndpointSecurity\AppLockerConversion\AppLockerRules-Audit.xml' -displayName 'WIN_COPE_AppLocker_Test' -grouping 'Development' -enforcement Enforce
 
+.NOTES
+Version:        0.2
+Author:         Nick Benton
+WWW:            oddsandendpoints.co.uk
+Creation Date:  04/09/2025
 #>
 
 [CmdletBinding()]
@@ -96,7 +101,8 @@ function Test-JSON() {
 
 }
 function Connect-ToGraph {
-    <#
+
+<#
 .SYNOPSIS
 Authenticates to the Graph API via the Microsoft.Graph.Authentication module.
 
@@ -119,6 +125,7 @@ Specifies the user scopes for interactive authentication.
 Connect-ToGraph -tenantId $tenantId -appId $app -appSecret $secret
 
 -#>
+
     [cmdletbinding()]
     param
     (
@@ -187,38 +194,62 @@ function New-CustomProfile() {
         Invoke-MgGraphRequest -Uri $uri -Method Post -Body $JSON -ContentType 'application/json'
     }
     catch {
-        Write-Error $Error[0].ErrorDetails.Message
+        Write-Error $_.Exception.Message
         break
     }
 }
 #endregion functions
 
-#region authentication
-$graphModule = 'Microsoft.Graph.Authentication'
-Write-Host "Checking for $graphModule PowerShell module..." -ForegroundColor Cyan
+#region module check
+$modules = @('Microsoft.Graph.Authentication')
+foreach ($module in $modules) {
+    Write-Host "Checking for $module PowerShell module..." -ForegroundColor Cyan
+    Write-Host ''
+    if (!(Get-Module -Name $module -ListAvailable)) {
+        if ($elevatedStatus -eq $true) {
+            Write-Host "PowerShell Module $module not found, installing for all users." -ForegroundColor Yellow
+            Write-Host ''
+            Install-Module -Name $module -AllowClobber
+        }
 
-if (!(Find-Module -Name $graphModule)) {
-    Install-Module -Name $graphModule -Scope CurrentUser
+        else {
+            Write-Host "PowerShell Module $module not found, installing for current user." -ForegroundColor Yellow
+            Write-Host ''
+            Install-Module -Name $module -Scope CurrentUser -AllowClobber
+        }
+
+    }
+    Write-Host "PowerShell Module $module found." -ForegroundColor Green
+    Write-Host ''
+    Import-Module -Name $module -Force
 }
-Write-Host "PowerShell Module $graphModule found." -ForegroundColor Green
+#endregion module check
 
-if (!([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object FullName -Like "*$graphModule*")) {
-    Import-Module -Name $graphModule -Force
+#region app auth
+try {
+    if (!$tenantId) {
+        Write-Host 'Connecting using interactive authentication' -ForegroundColor Yellow
+        Connect-MgGraph -Scopes $scopes -NoWelcome -ErrorAction Stop
+    }
+    else {
+        if ((!$appId -and !$appSecret) -or ($appId -and !$appSecret) -or (!$appId -and $appSecret)) {
+            Write-Host 'Missing App Details, connecting using user authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -Scopes $scopes -ErrorAction Stop
+        }
+        else {
+            Write-Host 'Connecting using App authentication' -ForegroundColor Yellow
+            Connect-ToGraph -tenantId $tenantId -appId $appId -appSecret $appSecret -ErrorAction Stop
+        }
+    }
+    $context = Get-MgContext
+    Write-Host ''
+    Write-Host "Successfully connected to Microsoft Graph tenant with ID $($context.TenantId)." -ForegroundColor Green
 }
-
-if (Get-MgContext) {
-    Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
-    Disconnect-MgGraph
+catch {
+    Write-Error $_.Exception.Message
+    exit
 }
-
-Write-Host 'Connecting to Graph' -ForegroundColor Cyan
-Connect-ToGraph -tenantId $tenantId -Scopes $scopes
-$existingScopes = (Get-MgContext).Scopes
-Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
-Disconnect-MgGraph
-Write-Host 'Connecting to Graph' -ForegroundColor Cyan
-Connect-ToGraph -tenantId $tenantId -Scopes $existingScopes
-#endregion authentication
+#endregion app auth
 
 try {
     while (!(Test-Path -Path $xmlPath -PathType Leaf)) {
@@ -293,6 +324,6 @@ try {
     }
 }
 catch {
-    Write-Error $Error[0].ErrorDetails.Message
-    exit 1
+    Write-Error $_.Exception.Message
+    exit
 }
