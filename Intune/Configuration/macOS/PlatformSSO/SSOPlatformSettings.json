@@ -65,7 +65,7 @@
                                                 "simpleSettingValue": {
                                                     "@odata.type": "#microsoft.graph.deviceManagementConfigurationStringSettingValue",
                                                     "settingValueTemplateReference": null,
-                                                    "value": "MEM v ENNBEE Account"
+                                                    "value": "odds+endpoints Account"
                                                 }
                                             },
                                             {

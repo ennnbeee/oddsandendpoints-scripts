@@ -50,7 +50,7 @@
     <key>PayloadIdentifier</key>
     <string>com.google.Chrome</string>
     <key>PayloadOrganization</key>
-    <string>MEM v ENNBEE</string>
+    <string>odds+endpoints</string>
     <key>PayloadRemovalDisallowed</key>
     <true/>
     <key>PayloadScope</key>

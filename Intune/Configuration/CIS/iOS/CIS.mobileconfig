@@ -26,7 +26,7 @@
         <key>PayloadIdentifier</key>
         <string>com.intune.memvennbee</string>
         <key>PayloadOrganization</key>
-        <string>MEM v ENNBEE</string>
+        <string>odds+endpoints</string>
         <key>PayloadRemovalDisallowed</key>
         <true/>
         <key>PayloadType</key>

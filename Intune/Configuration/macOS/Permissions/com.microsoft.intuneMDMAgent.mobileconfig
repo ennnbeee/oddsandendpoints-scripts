@@ -12,7 +12,7 @@
 			<key>PayloadIdentifier</key>
 			<string>6C76DD19-1770-40DE-A243-45EEEAF30958</string>
 			<key>PayloadOrganization</key>
-			<string>MEM v ENNBEE</string>
+			<string>odds+endpoints</string>
 			<key>PayloadType</key>
 			<string>com.apple.TCC.configuration-profile-policy</string>
 			<key>PayloadUUID</key>
@@ -70,7 +70,7 @@
 	<key>PayloadIdentifier</key>
 	<string>6C76DD19-1770-40DE-A243-45EEEAF30958</string>
 	<key>PayloadOrganization</key>
-	<string>MEM v ENNBEE</string>
+	<string>odds+endpoints</string>
 	<key>PayloadScope</key>
 	<string>System</string>
 	<key>PayloadType</key>

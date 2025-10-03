@@ -7,7 +7,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadOrganization</key>
-    <string>MEM v ENNBEE</string>
+    <string>odds+endpoints</string>
     <key>PayloadIdentifier</key>
     <string>02F3F9A6-A694-4D6B-AA6E-E1DBD0748CE3</string>
     <key>PayloadDisplayName</key>
@@ -30,7 +30,7 @@
         <key>PayloadType</key>
         <string>com.microsoft.wdav</string>
         <key>PayloadOrganization</key>
-        <string>MEM v ENNBEE</string>
+        <string>odds+endpoints</string>
         <key>PayloadIdentifier</key>
         <string>4961A7A7-E314-4B0B-95A9-01CA4E928E3F</string>
         <key>PayloadDisplayName</key>

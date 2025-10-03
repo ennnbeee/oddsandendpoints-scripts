@@ -10,7 +10,7 @@ Configures whether profile file are created as mobileconfig for Intune, or plist
 Valid options are 'Intune' or 'ThirdParty'
 
 .PARAMETER organisation
-String, default is 'MEM v ENNBEE': Configures the organisation name in the mobileconfig file.
+String, default is 'odds+endpoints': Configures the organisation name in the mobileconfig file.
 
 .PARAMETER weeklyScan
 Boolean, required: if true allow for configuration of a Full Defender scan.
@@ -79,7 +79,7 @@ param(
     [String]$mdm,
 
     [Parameter(Mandatory = $false)]
-    [String]$organisation = 'MEM v ENNBEE',
+    [String]$organisation = 'odds+endpoints',
 
     [Parameter(Mandatory = $true)]
     [boolean]$weeklyScan,
@@ -135,7 +135,7 @@ param(
 
 <#region testing
 $mdm = 'Intune'
-$organisation = 'MEM v ENNBEE'
+$organisation = 'odds+endpoints'
 $weeklyScan = $true
 $weeklyScanType = 'full'
 $weeklyScanDay = 'Fri'
