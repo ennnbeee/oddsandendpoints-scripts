@@ -80,7 +80,7 @@ function Get-PhasedDynamicGroups {
 
         $rule = ($regexParts | ForEach-Object {
                 "(device.deviceId -match `"$($_)`")"
-            }) -join ' -or '
+            }) -join ' or '
 
         $groupRules += [PSCustomObject]@{
             Group = "$($i + 1)"
@@ -220,5 +220,8 @@ foreach ($groupRule in $groupRules) {
 }
 
 Write-Host "`nThe following rules can be used to create group in Entra ID:`n" -ForegroundColor White
-$rulesComplete | Format-Table -Wrap -AutoSize
+$rulesComplete | ForEach-Object {
+    Write-Host "`nGroup $($_.Group) - $($_.Percentage)%`n" -ForegroundColor Green
+    Write-Host "$($_.Rule)" -ForegroundColor White
+}
 #endregion group rules
