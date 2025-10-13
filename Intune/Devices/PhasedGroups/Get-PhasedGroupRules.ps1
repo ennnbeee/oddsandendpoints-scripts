@@ -220,5 +220,5 @@ foreach ($groupRule in $groupRules) {
 }
 
 Write-Host "`nThe following rules can be used to create group in Entra ID:`n" -ForegroundColor White
-$rulesComplete | Format-List
+$rulesComplete | Format-Table -Wrap -AutoSize
 #endregion group rules
