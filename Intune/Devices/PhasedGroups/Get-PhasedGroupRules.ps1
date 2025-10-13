@@ -12,7 +12,7 @@ Specifies the operating system for which the phased group rules are to be genera
 Specifies the device ownership type for which the phased group rules are to be generated. Valid values are 'Corporate', 'Personal', and 'Both'.
 
 .PARAMETER groups
-Specifies the number of phased groups to create. Valid values are integers from 1 to 10.
+Specifies the number of phased groups to create. Valid values are integers from 2 to 10.
 
 .EXAMPLE
 .\Get-PhasedGroupRules.ps1 -operatingSystem 'Windows' -ownership 'Corporate' -groups 5
