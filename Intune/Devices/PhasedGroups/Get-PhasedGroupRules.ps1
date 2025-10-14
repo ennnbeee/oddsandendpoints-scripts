@@ -44,13 +44,13 @@ function Get-PhasedDynamicGroups {
     )
 
     # Validate total percentage
-    $total = ($percentages | Measure-Object -Sum).Sum
+    $total = ($Percentages | Measure-Object -Sum).Sum
     if ($total -ne 100) {
         throw "Total percentage must equal 100. Current total: $total"
     }
 
     $hexValues = 0..255
-    $groupSizes = $percentages | ForEach-Object { [math]::Round($_ * 256 / 100) }
+    $groupSizes = $Percentages | ForEach-Object { [math]::Round($_ * 256 / 100) }
 
     # Adjust rounding to ensure total is exactly 256
     $diff = 256 - ($groupSizes | Measure-Object -Sum).Sum
@@ -71,20 +71,27 @@ function Get-PhasedDynamicGroups {
         # Group prefixes by first hex digit
         $grouped = $prefixes | Group-Object { $_.Substring(0, 1) }
 
-        $regexParts = $grouped | ForEach-Object {
+        $ruleParts = $grouped | ForEach-Object {
             $firstChar = $_.Name
             $secondChars = $_.Group | ForEach-Object { $_.Substring(1, 1) }
-            $charClass = ($secondChars | Sort-Object -Unique) -join ''
-            "^$firstChar[$charClass]"
+            $uniqueSecondChars = $secondChars | Sort-Object -Unique
+
+            if ($uniqueSecondChars.Count -eq 16) {
+                # All hex digits present, use startsWith
+                "(device.deviceId -startsWith `"$firstChar`")"
+            }
+            else {
+                # Use regex match
+                $charClass = $uniqueSecondChars -join ''
+                "(device.deviceId -match `"^$firstChar[$charClass]`")"
+            }
         }
 
-        $rule = ($regexParts | ForEach-Object {
-                "(device.deviceId -match `"$($_)`")"
-            }) -join ' or '
+        $rule = $ruleParts -join ' or '
 
         $groupRules += [PSCustomObject]@{
-            Group = "$($i + 1)"
-            Rule  = $rule
+            group = "$($i + 1)"
+            Rule = $rule
         }
     }
 
