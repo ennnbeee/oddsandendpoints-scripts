@@ -1,0 +1,46 @@
+{
+    "Rules": [
+        {
+            "SettingName": "Windows Recall Feature",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Disabled",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/windows/client-management/manage-recall",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Recall",
+                    "Description": "The Windows Recall Feature must be disabled on your computer to be marked as compliant."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows Recall AllowRecallEnablement",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Disabled",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/windows/client-management/manage-recall#allow-recall-and-snapshots-policies",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Recall",
+                    "Description": "The value for 'AllowRecallEnablement' under registry key 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI' must be set to 0 (Disabled) on your computer to be marked as compliant."
+                }
+            ]
+        },
+        {
+            "SettingName": "Windows Recall DisableAIDataAnalysis",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Enabled",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/windows/client-management/manage-recall#allow-recall-and-snapshots-policies",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Recall",
+                    "Description": "The value for 'DisableAIDataAnalysis' under registry key 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI' must be set to 1 (Enabled) on your computer to be marked as compliant."
+                }
+            ]
+        }
+    ]
+}
