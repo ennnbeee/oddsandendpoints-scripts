@@ -1,6 +1,5 @@
 $windowsRecallStatus = 0
 $complianceSummary = New-Object -TypeName PSObject
-
 $featureRecall = (Get-WindowsOptionalFeature -Online -FeatureName 'Recall')
 if ($featureRecall.State -eq 'Enabled') {
     [PsObject[]]$regKeysRecall = @()

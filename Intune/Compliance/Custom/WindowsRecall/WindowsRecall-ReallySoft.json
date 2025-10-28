@@ -1,0 +1,18 @@
+{
+    "Rules": [
+        {
+            "SettingName": "Windows Recall",
+            "Operator": "IsEquals",
+            "DataType": "String",
+            "Operand": "Disabled",
+            "MoreInfoUrl": "https://learn.microsoft.com/en-us/windows/client-management/manage-recall",
+            "RemediationStrings": [
+                {
+                    "Language": "en_US",
+                    "Title": "Windows Recall",
+                    "Description": "Windows Recall must be disabled on your computer to be marked as compliant."
+                }
+            ]
+        }
+    ]
+}
