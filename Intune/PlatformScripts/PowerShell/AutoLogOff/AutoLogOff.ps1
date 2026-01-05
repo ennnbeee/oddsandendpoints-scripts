@@ -17,6 +17,6 @@ try {
     Exit 0
 }
 catch {
-    Write-Error "Failed to create scheduled task '$stTaskName"
+    Write-Error "Failed to create scheduled task $stTaskName"
     Exit 1
 }
