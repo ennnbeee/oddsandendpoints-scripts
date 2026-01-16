@@ -46,7 +46,7 @@
                 <key>InteractiveMode</key>
                 <string>2</string>
                 <key>IgnoredLabels</key>
-                <string></string>
+                <string>microsoftonedrive-rollingoutdeferred microsoftonedrivesuinsiders microsoftonedrivesuprod microsoftonedrive</string>
                 <key>ConvertAppsInHomeFolder</key>
                 <string>TRUE</string>
                 <key>InstallomatorOptions</key>
