@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadUUID</key>
+        <string>21ffca42-9209-41e2-8e63-da16af676121</string>
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadOrganization</key>
+        <string>xyz.techitout.appAutoPatch</string>
+        <key>PayloadIdentifier</key>
+        <string>xyz.techitout.appAutoPatch</string>
+        <key>PayloadDisplayName</key>
+        <string>App Auto-Patch Settings</string>
+        <key>PayloadDescription</key>
+        <string>App Auto-Patch Settings from Intune</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>PayloadRemovalDisallowed</key>
+        <true/>
+        <key>PayloadScope</key>
+        <string>System</string>
+        <key>PayloadContent</key>
+        <array>
+            <dict>
+                <key>PayloadDisplayName</key>
+                <string>App Auto-Patch</string>
+                <key>PayloadIdentifier</key>
+                <string>xyz.techitout.appAutoPatch</string>
+                <key>PayloadType</key>
+                <string>xyz.techitout.appAutoPatch</string>
+                <key>PayloadUUID</key>
+                <string>515b818d-d81e-435a-946f-9e84018d916b</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>AppTitle</key>
+                <string>Intune App Auto-Patch</string>
+                <key>DialogOnTop</key>
+                <string>TRUE</string>
+                <key>SelfUpdateEnabled</key>
+                <true/>
+                <key>SelfUpdateFrequency</key>
+                <string>monthly</string>
+                <key>InteractiveMode</key>
+                <string>2</string>
+                <key>IgnoredLabels</key>
+                <string></string>
+                <key>ConvertAppsInHomeFolder</key>
+                <string>TRUE</string>
+                <key>InstallomatorOptions</key>
+                <string>BLOCKING_PROCESS_ACTION=prompt_user NOTIFY=silent LOGO=microsoft</string>
+                <key>InstallomatorVersion</key>
+                <string>Main</string>
+                <key>RemoveInstallomatorPath</key>
+                <string>FALSE</string>
+                <key>PatchWeekStartDay</key>
+                <integer>2</integer>
+                <key>DeferralTimerFocus</key>
+                <integer>60</integer>
+                <key>DeadlineCountFocus</key>
+                <integer>3</integer>
+                <key>DeferralTimerError</key>
+                <integer>60</integer>
+                <key>DialogTimeoutDeferral</key>
+                <integer>300</integer>
+                <key>DialogTimeoutDeferralAction</key>
+                <string>Continue</string>
+                <key>DeferralTimerMenu</key>
+                <string>30,60,90,480,720,1440,2880</string>
+                <key>DeadlineCountHard</key>
+                <string>3</string>
+                <key>SupportTeamName</key>
+                <string>Company Support Team</string>
+                <key>SupportTeamPhone</key>
+                <string>118 118</string>
+                <key>SupportTeamEmail</key>
+                <string>support@company.com</string>
+                <key>SupportTeamWebsite</key>
+                <string>support.company.com</string>
+            </dict>
+        </array>
+    </dict>
+</plist>
