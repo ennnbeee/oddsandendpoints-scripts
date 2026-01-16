@@ -17,7 +17,7 @@ AAP_LOCAL_PLIST="${AAP_FOLDER}/xyz.techitout.appAutoPatch" # No trailing ".plist
 INSTALL_VERSION="3.5.0"
 
 # Hash of downloaded script for security reasons:
-HASH_CHECK=1DD0E3D8B1075DEB22EE9EF91328885E92061331DD04F67AA217FC18AF8D0D5A
+HASH_CHECK=1dd0e3d8b1075deb22ee9ef91328885e92061331dd04f67aa217fc18af8d0d5a
 
 # Temporary download folder
 AAP_TEMP="/var/tmp/temp_aap"
