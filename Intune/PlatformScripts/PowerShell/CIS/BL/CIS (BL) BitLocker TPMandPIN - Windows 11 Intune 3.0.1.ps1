@@ -21,7 +21,7 @@ Try {
     }
 
     # Configures the PIN and Enables BitLocker using the TpmPin key protector
-    $deviceSerial = (((Get-WmiObject -Class win32_bios).Serialnumber).ToUpper() -replace '[^a-zA-Z0-9]', '')
+    $deviceSerial = (((Get-CimInstance -Class win32_bios).Serialnumber).ToUpper() -replace '[^a-zA-Z0-9]', '')
     If ($deviceSerial.length -gt 14) {
         $deviceSerial = $deviceSerial.Substring(0, 14) # Reduce to 14 characters if longer
     }
