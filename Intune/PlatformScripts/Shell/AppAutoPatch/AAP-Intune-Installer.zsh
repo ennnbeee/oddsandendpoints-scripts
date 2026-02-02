@@ -25,30 +25,43 @@ AAP_TEMP="/var/tmp/temp_aap"
 #LaunchDaemon
 appAutoPatchLaunchDaemonLabel="xyz.techitout.aap"
 
+# function to delay until the user has finished setup assistant.
+waitForDesktop () {
+    until ps aux | grep /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | grep -v grep &>/dev/null; do
+        delay=$(( $RANDOM % 50 + 10 ))
+        echo "$(date) |  + Dock not running, waiting [$delay] seconds"
+        sleep $delay
+    done
+    echo "$(date) | Dock is here, lets carry on"
+}
+
+# Wait for Desktop
+waitForDesktop
+
 # Report if the AAP preference file exists.
 if [[ -f "${AAP_FOLDER}/appautopatch" ]]; then
-	if [[ -f "${AAP_LOCAL_PLIST}.plist" ]]; then
-		AAP_version_local=$(defaults read "${AAP_LOCAL_PLIST}" AAPVersion 2> /dev/null)
-		[[ $(echo "${AAP_version_local}" | cut -c 1) -lt 4 ]] && AAP_version_local=$(grep -m1 -e 'scriptVersion=' -e '  Version ' "${AAP_FOLDER}/appautopatch" | cut -d '"' -f 2 | cut -d " " -f 4)
-		[[ -n "${AAP_version_local}" ]] && echo "<result>${AAP_version_local}</result>"
-		[[ -z "${AAP_version_local}" ]] && echo "<result>No AAP version number found</result>"
-	else
-		echo "<result>No AAP preference file</result>"
-		AAP_version_local="FALSE"
-	fi
+    if [[ -f "${AAP_LOCAL_PLIST}.plist" ]]; then
+        AAP_version_local=$(defaults read "${AAP_LOCAL_PLIST}" AAPVersion 2> /dev/null)
+        [[ $(echo "${AAP_version_local}" | cut -c 1) -lt 4 ]] && AAP_version_local=$(grep -m1 -e 'scriptVersion=' -e '  Version ' "${AAP_FOLDER}/appautopatch" | cut -d '"' -f 2 | cut -d " " -f 4)
+        [[ -n "${AAP_version_local}" ]] && echo "<result>${AAP_version_local}</result>"
+        [[ -z "${AAP_version_local}" ]] && echo "<result>No AAP version number found</result>"
+    else
+        echo "<result>No AAP preference file</result>"
+        AAP_version_local="FALSE"
+    fi
 else
-	echo "<result>Not installed</result>"
-	AAP_version_local="FALSE"
+    echo "<result>Not installed</result>"
+    AAP_version_local="FALSE"
 fi
 
 #Script to deploy App Auto-Patch in Microsoft Intune.
 
 #Check for expected version
 if [[ ${AAP_version_local} = "FALSE" ]]; then
-	echo "No local version found to perform check, skipping"
+    echo "No local version found to perform check, skipping"
 
-elif [ $INSTALL_VERSION = ${AAP_version_local} ]; then
-	exit 0
+    elif [ $INSTALL_VERSION = ${AAP_version_local} ]; then
+    exit 0
 fi
 
 #Download expected version

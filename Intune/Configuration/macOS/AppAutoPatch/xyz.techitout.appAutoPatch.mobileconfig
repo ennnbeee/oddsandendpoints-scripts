@@ -46,7 +46,7 @@
                 <key>InteractiveMode</key>
                 <string>2</string>
                 <key>IgnoredLabels</key>
-                <string>googlechrome* microsoftonedrive-* microsoftonedrivesuprod firefox*</string>
+                <string>googlechrome* microsoftonedrive-* microsoftonedrivesuprod microsoftonedrivesuinsiders firefox*</string>
                 <key>ConvertAppsInHomeFolder</key>
                 <string>TRUE</string>
                 <key>InstallomatorOptions</key>
