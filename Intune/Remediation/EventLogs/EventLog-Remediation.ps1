@@ -1,11 +1,11 @@
 $logs = @()
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/EXE and DLL'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/MSI and Script'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Deployment'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Execution'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-CodeIntegrity/Operational'; Size = 10MB; CurrentSize = $null }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/EXE and DLL'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/MSI and Script'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Deployment'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Execution'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-CodeIntegrity/Operational'; Size = 10MB }
 
-try {
+try {s
     foreach ($log in $logs) {
         $eventLog = Get-WinEvent -ListLog $log.Name -ErrorAction SilentlyContinue
         if ($eventLog) {
