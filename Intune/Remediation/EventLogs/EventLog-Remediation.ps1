@@ -5,7 +5,7 @@ $logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Depl
 $logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Execution'; Size = 10MB }
 $logs += [PSCustomObject]@{Name = 'Microsoft-Windows-CodeIntegrity/Operational'; Size = 10MB }
 
-try {s
+try {
     foreach ($log in $logs) {
         $eventLog = Get-WinEvent -ListLog $log.Name -ErrorAction SilentlyContinue
         if ($eventLog) {
@@ -14,9 +14,6 @@ try {s
                 $eventLog.SaveChanges()
                 Write-Output "Remediated event log $($log.Name) to size $($log.Size)."
             }
-        }
-        else {
-            continue
         }
     }
 }

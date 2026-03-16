@@ -16,9 +16,6 @@ try {
                 $remediateOutput += "Event log $($log.Name) is configured with size $($eventLog.MaximumSizeInBytes) bytes, expected size is $($log.Size) bytes"
             }
         }
-        else {
-            continue
-        }
     }
 
     if ($remediateCount -gt 0) {
