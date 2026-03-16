@@ -10,9 +10,9 @@ try {
     foreach ($log in $logs) {
         $eventLog = Get-WinEvent -ListLog $log.Name -ErrorAction SilentlyContinue
         if ($eventLog) {
+            $log.CurrentSize = $eventLog.MaximumSizeInBytes
             if ($eventLog.MaximumSizeInBytes -ne $log.Size) {
                 $remediateCount++
-                $log.CurrentSize = $eventLog.MaximumSizeInBytes
             }
         }
         else {
@@ -21,7 +21,6 @@ try {
     }
 
     if ($remediateCount -gt 0) {
-        Write-Output "Remediation needed for $remediateCount event log(s)."
         Write-Output $logs | Format-Table -Property Name, Size, CurrentSize
         exit 1
     }
