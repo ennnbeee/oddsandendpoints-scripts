@@ -1,18 +1,19 @@
 $logs = @()
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/EXE and DLL'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/MSI and Script'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Deployment'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Execution'; Size = 10MB; CurrentSize = $null }
-$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-CodeIntegrity/Operational'; Size = 10MB; CurrentSize = $null }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/EXE and DLL'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/MSI and Script'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Deployment'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-AppLocker/Packaged app-Execution'; Size = 10MB }
+$logs += [PSCustomObject]@{Name = 'Microsoft-Windows-CodeIntegrity/Operational'; Size = 10MB }
 
 try {
     $remediateCount = 0
+    $remediateOutput = @()
     foreach ($log in $logs) {
         $eventLog = Get-WinEvent -ListLog $log.Name -ErrorAction SilentlyContinue
         if ($eventLog) {
-            $log.CurrentSize = $eventLog.MaximumSizeInBytes
             if ($eventLog.MaximumSizeInBytes -ne $log.Size) {
                 $remediateCount++
+                $remediateOutput += "Event log $($log.Name) is configured with size $($eventLog.MaximumSizeInBytes) bytes, expected size is $($log.Size) bytes"
             }
         }
         else {
@@ -21,7 +22,7 @@ try {
     }
 
     if ($remediateCount -gt 0) {
-        Write-Output $logs | Format-Table -Property Name, Size, CurrentSize
+        Write-Output $($remediateOutput -join ", ")
         exit 1
     }
     else {
