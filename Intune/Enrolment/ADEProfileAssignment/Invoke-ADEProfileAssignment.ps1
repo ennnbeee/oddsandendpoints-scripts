@@ -10,7 +10,8 @@ param(
 
 )
 
-Function Get-ADEEnrolmentToken() {
+#region functions
+function Get-ADEEnrolmentToken() {
 
     [cmdletbinding()]
 
@@ -21,21 +22,21 @@ Function Get-ADEEnrolmentToken() {
     try {
 
         $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
-            (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
+        (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
 
     }
 
     catch {
 
         Write-Error $Error[0].ErrorDetails.Message
-        break
+        throw
 
     }
 
 }
-Function Get-ADEEnrolmentProfile() {
+function Get-ADEEnrolmentProfile() {
 
-    Param(
+    param(
         [Parameter(Mandatory = $true)]
         $TokenID
     )
@@ -46,23 +47,23 @@ Function Get-ADEEnrolmentProfile() {
     try {
 
         $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
-            (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
+        (Invoke-MgGraphRequest -Uri $uri -Method Get).Value
 
     }
 
     catch {
 
         Write-Error $Error[0].ErrorDetails.Message
-        break
+        throw
 
     }
 
 }
-Function Add-ADEEnrolmentProfileAssignment() {
+function Add-ADEEnrolmentProfileAssignment() {
 
-    Param(
+    param(
         [Parameter(Mandatory = $true)]
-        $Id,
+        $TokenID,
         [Parameter(Mandatory = $true)]
         $ProfileID,
         [Parameter(Mandatory = $true)]
@@ -83,10 +84,11 @@ Function Add-ADEEnrolmentProfileAssignment() {
 
     catch {
         Write-Error $Error[0].ErrorDetails.Message
-        break
+        throw
     }
 
 }
+#endregion
 
 #region Script
 $Sleep = '1'
@@ -95,6 +97,7 @@ Write-Host '****    Welcome to the Intune Apple ADE Device Profile Assignment To
 Write-Host '****    This Script will import device serials and assign an ADE profile  ****' -ForegroundColor Cyan
 Write-Host '******************************************************************************'
 Write-Host
+
 #region authentication
 if (Get-MgContext) {
     Write-Host 'Disconnecting from existing Graph session.' -ForegroundColor Cyan
@@ -110,11 +113,11 @@ if ($Module.count -eq 0) {
     }
     else {
         Write-Host "$moduleName module is required. Please install module using 'Install-Module $moduleName -Scope AllUsers -Force' cmdlet." -ForegroundColor Yellow
-        break
+        exit
     }
 }
 else {
-    If ($IsMacOS) {
+    if ($IsMacOS) {
         Connect-MgGraph -Scopes $scopes -UseDeviceAuthentication -TenantId $tenantId
         Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
         Disconnect-MgGraph
@@ -122,14 +125,14 @@ else {
         Connect-MgGraph -Scopes $scopes -UseDeviceAuthentication -TenantId $tenantId
 
     }
-    ElseIf ($IsWindows) {
+    elseif ($IsWindows) {
         Connect-MgGraph -Scopes $scopes -UseDeviceCode -TenantId $tenantId
         Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
         Disconnect-MgGraph
         Write-Host 'Connecting to Graph' -ForegroundColor Cyan
         Connect-MgGraph -Scopes $scopes -UseDeviceAuthentication -TenantId $tenantId
     }
-    Else {
+    else {
         Connect-MgGraph -Scopes $scopes -TenantId $tenantId
         Write-Host 'Disconnecting from Graph to allow for changes to consent requirements' -ForegroundColor Cyan
         Disconnect-MgGraph
@@ -140,30 +143,31 @@ else {
     $graphDetails = Get-MgContext
     if ($null -eq $graphDetails) {
         Write-Host "Not connected to Graph, please review any errors and try to run the script again' cmdlet." -ForegroundColor Red
-        break
+        throw
     }
 }
-#endregion authentication
+#endregion
+
 Write-Host
 $CSVPath = Read-Host 'Please provide the path to the CSV file containing a list of Serial Numbers and ADE Profile Names e.g. C:\temp\ADEDevices.csv'
 if (!(Test-Path "$CSVPath")) {
     Write-Host "Import Path for CSV file doesn't exist" -ForegroundColor Red
     Write-Host "Script can't continue" -ForegroundColor Red
     Write-Host
-    break
+    exit
 }
 Start-Sleep -Seconds $Sleep
 Write-Host 'Importing Devices...' -ForegroundColor Cyan
 Write-Host
-Try {
+try {
     $Devices = Import-Csv -Path $CSVPath
     Write-Host 'Imported Device Serials and Assignment Profiles' -ForegroundColor Green
     Write-Host
 }
-Catch {
+catch {
     Write-Host 'Unable to Import CSV ' -ForegroundColor Red
     Write-Host
-    Break
+    throw
 }
 Start-Sleep -Seconds $Sleep
 Write-Host 'Processing Enrolment Profiles and Device Serials...' -ForegroundColor Cyan
@@ -187,16 +191,16 @@ Write-Host
 
 Write-Host 'Getting Apple Enrolment Token...' -ForegroundColor Cyan
 Write-Host
-Try {
+try {
 
     $Token = Get-ADEEnrolmentToken
     Write-Host "Found Token: $($Token.tokenName) in Intune" -ForegroundColor Green
     Write-Host
 }
-Catch {
-    Write-Host 'Unable to retreive the Apple Enrolment Token' -ForegroundColor Red
+catch {
+    Write-Host 'Unable to retrieve the Apple Enrolment Token' -ForegroundColor Red
     Write-Host
-    Break
+    throw
 }
 
 Start-Sleep -Seconds $Sleep
@@ -208,34 +212,29 @@ foreach ($Assignment in $Assignments.GetEnumerator()) {
     Write-Host "Devices: $($Assignment.Value)" -ForegroundColor Yellow
     Write-Host
     Write-Warning 'Please confirm you are happy to continue assigning the Enrolment Profile to the devices' -WarningAction Inquire
-    Try {
+    try {
         Write-Host 'Assigning Enrolment Profile to devices...' -ForegroundColor Cyan
         Write-Host
-        Try {
+        try {
             $EnrolmentProfile = Get-ADEEnrolmentProfile -TokenID $Token.id | Where-Object { ($_.displayName -eq $Assignment.Name) }
-            Try {
+            try {
                 Add-ADEEnrolmentProfileAssignment -TokenID $Token.id -ProfileID $EnrolmentProfile.id -DeviceSerial $Assignment.Value
                 Write-Host "Enrolment Profile $($Assignment.Name) successfully assigned to devices: $($Assignment.Value)" -ForegroundColor Green
                 Write-Host
                 Start-Sleep -Seconds $Sleep
             }
-            Catch {
+            catch {
                 Write-Host "Unable to assign devices to Enrolment Profile $($Assignment.Name)" -ForegroundColor Red
                 Write-Host
             }
         }
-        Catch {
+        catch {
             Write-Host "Unable to find Enrolment Profile in Intune with name: $($Assignment.Name)" -ForegroundColor Red
             Write-Host
         }
     }
-    Catch {
+    catch {
         Write-Host 'Unable to assign Enrolment Profiles to Devices' -ForegroundColor Red
         Write-Host
     }
 }
-
-
-
-
-
