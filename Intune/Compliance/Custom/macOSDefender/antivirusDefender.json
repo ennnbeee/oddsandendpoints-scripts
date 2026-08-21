@@ -1,0 +1,74 @@
+{
+  "Rules": [
+    {
+      "SettingName": "Defender_Installed",
+      "Operator": "IsEquals",
+      "DataType": "Boolean",
+      "Operand": true,
+      "MoreInfoUrl": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint-mac",
+      "RemediationStrings": [
+        {
+          "Language": "en_US",
+          "Title": "Microsoft Defender not installed",
+          "Description": "Microsoft Defender for Endpoint must be installed on this device. Please contact IT support for assistance."
+        }
+      ]
+    },
+    {
+      "SettingName": "Defender-Healthy",
+      "Operator": "IsEquals",
+      "DataType": "Boolean",
+      "Operand": true,
+      "MoreInfoUrl": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint-mac",
+      "RemediationStrings": [
+        {
+          "Language": "en_US",
+          "Title": "Microsoft Defender - Unhealthy",
+          "Description": "Microsoft Defender for Endpoint is not healthy on this device. Please contact IT support for assistance."
+        }
+      ]
+    },
+    {
+      "SettingName": "Defender-Running",
+      "Operator": "IsEquals",
+      "DataType": "Boolean",
+      "Operand": true,
+      "MoreInfoUrl": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint-mac",
+      "RemediationStrings": [
+        {
+          "Language": "en_US",
+          "Title": "Microsoft Defender - Not Running",
+          "Description": "Microsoft Defender for Endpoint service is not running. Please restart the application or contact IT support."
+        }
+      ]
+    },
+    {
+      "SettingName": "Defender-RealtimeProtectionEnabled",
+      "Operator": "IsEquals",
+      "DataType": "Boolean",
+      "Operand": true,
+      "MoreInfoUrl": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-preferences#enable-real-time-protection",
+      "RemediationStrings": [
+        {
+          "Language": "en_US",
+          "Title": "Microsoft Defender - Real-time Protection Disabled",
+          "Description": "Real-time protection must be enabled in Microsoft Defender. Open Microsoft Defender and enable real-time protection, or contact IT support."
+        }
+      ]
+    },
+    {
+      "SettingName": "Defender-DefinitionsUpToDate",
+      "Operator": "IsEquals",
+      "DataType": "Boolean",
+      "Operand": true,
+      "MoreInfoUrl": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-updates",
+      "RemediationStrings": [
+        {
+          "Language": "en_US",
+          "Title": "Microsoft Defender - Antivirus Definitions Out of Date",
+          "Description": "Your Microsoft Defender antivirus definitions are not current. Please update Microsoft Defender or contact IT support if the issue persists."
+        }
+      ]
+    }
+  ]
+}
