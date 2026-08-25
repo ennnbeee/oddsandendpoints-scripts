@@ -1,7 +1,7 @@
 {
   "Rules": [
     {
-      "SettingName": "Defender_Installed",
+      "SettingName": "Defender-Installed",
       "Operator": "IsEquals",
       "DataType": "Boolean",
       "Operand": true,
